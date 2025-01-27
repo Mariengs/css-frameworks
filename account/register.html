@@ -3,7 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="/js/user/register.js" type="module"></script>
+    <link rel="stylesheet" href="/css/registerpage.css" />
     <title>Register page</title>
   </head>
-  <body></body>
+  <body>
+    <main>
+      <section class="registerform">
+        <h1>Create Your Account</h1>
+        <form id="registerform" class="registerform">
+          <label for="name">Username:</label>
+          <input type="text" id="name" required /><br /><br />
+
+          <label for="email">E-mail:</label>
+          <input type="email" id="email" required /><br /><br />
+
+          <label for="password">Password:</label>
+          <input type="password" id="password" required /><br /><br />
+
+          <button class="registerbutton" type="submit">REGISTER</button>
+        </form>
+        <p id="loginMessage"></p>
+      </section>
+      <section>
+        <h2>Already have an account?</h2>
+        <a href="login.html"> LOGIN HERE</a>
+      </section>
+    </main>
+  </body>
 </html>

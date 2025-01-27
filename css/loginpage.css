@@ -1,0 +1,42 @@
+body {
+  max-width: auto;
+  margin: 1;
+  background-color: #f7f7f8;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 14px;
+  background-color: #f7f7f8;
+  max-width: 100%;
+}
+
+.loginform,
+.registerform label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.loginform input,
+.registerform input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+.loginbutton,
+.registerbutton {
+  padding: 10px 20px;
+  background-color: #424953;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+}
