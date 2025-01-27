@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="/js/posts/singlePost.js" type="module"></script>
+    <link rel="stylesheet" href="/css/singlepost.css" />
+    <title>Single post page</title>
+  </head>
+  <body>
+    <a href="../index.html">Home</a>
+    <a href="/account/login.html">Login</a>
+    <a href="/account/register.html">Register</a>
+    <a href="/account/profilepage.html">Profile</a>
+    <main>
+      <section class="post">
+        <div class="text">
+          <h1 id="title"></h1>
+          <p id="author" class="author"></p>
+          <p id="body"></p>
+        </div>
+        <div class="image">
+          <img id="image" alt="" />
+        </div>
+        <p id="updated"></p>
+        <div class="buttons">
+          <button id="editButton" class="edit-button">Edit</button>
+          <button id="deleteButton" class="delete-button">Delete</button>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

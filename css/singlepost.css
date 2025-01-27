@@ -1,0 +1,67 @@
+main {
+  display: flex;
+  justify-content: center;
+  padding: 14px;
+  padding-bottom: 250px;
+}
+
+.post-link {
+  display: block;
+  text-decoration: none;
+  color: inherit; /* Beholder fargen på innlegget */
+  padding: 10px;
+}
+
+.post-link:hover {
+  background-color: #f0f0f0; /* Endre bakgrunn ved hover */
+  cursor: pointer;
+}
+
+.post {
+  display: flex;
+  flex-direction: column; /* Bildet til høyre, teksten til venstre */
+  align-items: center; /* Justerer både bilde og tekst vertikalt */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  background-color: #fff;
+  max-width: 1500px; /* Juster bredde etter behov */
+  width: 100%;
+  gap: 20px; /* Avstand mellom bilde og tekst */
+}
+
+.image {
+  width: 300px; /* Sett fast bredde for bildet */
+  height: 200px; /* Sett fast høyde for bildet */
+  border-radius: 8px;
+  overflow: hidden; /* Skjuler eventuelle overskytende deler av bildet */
+}
+
+.image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Sørger for at bildet dekker området uten å bli deformert */
+  object-position: center; /* Sentraliserer bildet i containeren */
+}
+
+.text {
+  max-width: 50%; /* Lar teksten ta opp all tilgjengelig plass */
+}
+
+.buttons {
+  margin-top: auto; /* Skyver knappene ned til bunnen */
+  display: flex;
+  gap: 10px; /* Avstand mellom knappene */
+}
+
+.edit-button,
+.delete-button {
+  padding: 10px 20px;
+  background-color: #424953;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

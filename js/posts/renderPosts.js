@@ -17,6 +17,10 @@ export async function renderPosts() {
     const postElement = document.createElement("div");
     postElement.classList.add("post"); // Legg til en CSS-klasse for styling
 
+    const postLink = document.createElement("a");
+    postLink.href = `/singlepost.html?id=${post.id}`; // Legg til innleggets ID i URL-en
+    postLink.classList.add("post-link");
+
     // Legg til tittel og innhold
     const postTitle = document.createElement("h3");
     postTitle.textContent = post.title;
@@ -35,6 +39,11 @@ export async function renderPosts() {
     postElement.appendChild(postBody);
 
     // Legg post-elementet til i containeren
+    postsContainer.appendChild(postElement);
+
+    postElement.appendChild(postLink);
+
+    // Legg postElement til i containeren
     postsContainer.appendChild(postElement);
   });
 }
