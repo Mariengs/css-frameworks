@@ -20,8 +20,8 @@ function requestBody({ name, email, password, bio, avatar }) {
     password,
     bio,
     avatar: {
-      url: "avatarURL",
-      alt: "avatar",
+      url: "placeholder.png",
+      alt: "avatar.png",
     },
   };
 }
