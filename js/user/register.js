@@ -1,26 +1,28 @@
 import { REGISTER_URL } from "../api/api.js";
 
 function getValues() {
-  const name = document.getElementById("name").value;
-  const password = document.getElementById("password").value;
-  const email = document.getElementById("email").value;
+  const name = document.getElementById("name").value.trim();
+  const password = document.getElementById("password").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const bio = document.getElementById("bio")?.value.trim();
+  const avatarUrl = document.getElementById("avatar")?.value.trim();
 
   if (!name || !password || !email) {
-    alert("All felds are required");
-    return;
+    alert("All fields are required");
+    return null; // Viktig for å unngå videre behandling
   }
 
-  return { name, password, email };
+  return { name, password, email, bio, avatarUrl };
 }
 
-function requestBody({ name, email, password, bio, avatar }) {
+function createRequestBody({ name, email, password, bio, avatarUrl }) {
   return {
     name,
     email,
     password,
-    bio,
+    bio: bio || "Default bio", // Standardverdi hvis bio ikke er oppgitt
     avatar: {
-      url: "placeholder.png",
+      url: avatarUrl || "placeholder.png", // Standardverdi hvis avatar ikke er oppgitt
       alt: "avatar.png",
     },
   };
@@ -43,8 +45,9 @@ async function registerUser(requestBody) {
     }
 
     const data = await response.json();
+    localStorage.setItem("accessToken", data.accessToken);
     alert("Registration successful! Welcome!");
-    window.location.href = "/account/login.html";
+    window.location.href = "/";
   } catch (error) {
     alert(`Something went wrong: ${error.message}`);
   }
@@ -55,9 +58,12 @@ document
   .addEventListener("submit", function (event) {
     event.preventDefault();
 
-    const bodyValues = getValues();
+    const values = getValues();
+    if (!values) {
+      return;
+    }
 
-    const requestBody = requestBody(bodyValues);
+    const requestBodyData = createRequestBody(values);
 
-    registerUser(requestBody);
+    registerUser(requestBodyData);
   });

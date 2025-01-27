@@ -1,0 +1,32 @@
+#posts-container {
+  margin: 20px;
+}
+
+/* Styler for postene */
+.post {
+  border: 1px solid #ccc; /* Gir en liten kant rundt posten */
+  padding: 10px; /* Litt avstand inne i posten */
+  margin-bottom: 15px; /* Litt avstand mellom postene */
+  width: 300px; /* Setter en fast bredde for posten */
+  font-size: 14px; /* Reduserer tekststørrelsen */
+  line-height: 1.5; /* Øker linjeavstanden for bedre lesbarhet */
+  overflow: hidden; /* Forhindrer at innhold strekker seg utenfor */
+  border-radius: 8px; /* Gir postene avrundede hjørner */
+  background-color: #f9f9f9; /* Lys bakgrunnsfarge for postene */
+}
+
+/* For bilder inne i postene */
+.post img {
+  width: 100%; /* Får bildet til å fylle bredden på posten */
+  height: auto; /* Beholder proporsjonene til bildet */
+  max-height: 200px; /* Setter en maks høyde for bildet */
+  object-fit: cover; /* Sørger for at bildet fyller området uten å bli forvrengt */
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+p {
+  font-size: 1rem;
+}

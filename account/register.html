@@ -10,25 +10,27 @@
   <body>
     <main>
       <nav>
-        <a href="index.html">Home</a>
+        <a href="../index.html">Home</a>
         <a href="/account/login.html">Login</a>
         <a href="/account/register.html">Register</a>
         <a href="/account/profilepage.html">Profile</a>
       </nav>
       <section class="registerform">
         <h1>Create Your Account</h1>
-        <form id="registerform" class="registerform">
-          <label for="name">Username:</label>
-          <input type="text" id="name" required /><br /><br />
-
-          <label for="email">E-mail:</label>
-          <input type="email" id="email" required /><br /><br />
-
-          <label for="password">Password:</label>
-          <input type="password" id="password" required /><br /><br />
-
-          <button class="registerbutton" type="submit">REGISTER</button>
+        <form id="registerform">
+          <input type="text" id="name" placeholder="Name" required />
+          <input type="email" id="email" placeholder="Email" required />
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            required
+          />
+          <input type="text" id="bio" placeholder="Bio (optional)" />
+          <input type="text" id="avatar" placeholder="Avatar URL (optional)" />
+          <button class="registerbutton" type="submit">Register</button>
         </form>
+
         <p id="loginMessage"></p>
       </section>
       <section>

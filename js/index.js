@@ -1,3 +1,5 @@
 import { renderPosts } from "./posts/renderPosts.js";
 
-renderPosts();
+document.addEventListener("DOMContentLoaded", () => {
+  renderPosts();
+});
