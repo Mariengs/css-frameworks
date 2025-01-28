@@ -15,6 +15,15 @@
   background-color: #f9f9f9; /* Lys bakgrunnsfarge for postene */
 }
 
+.post-link {
+  text-decoration: none; /* Fjern understrek */
+  color: inherit; /* Behold tekstfarge */
+}
+
+.post:hover {
+  background-color: #f9f9f9;
+}
+
 /* For bilder inne i postene */
 .post img {
   width: 100%; /* Får bildet til å fylle bredden på posten */
