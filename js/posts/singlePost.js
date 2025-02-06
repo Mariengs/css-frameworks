@@ -12,7 +12,7 @@ async function getPost(id) {
     console.log("Henter token:", token);
 
     if (!token) {
-      throw new Error("Ingen token funnet. Er du logget inn?");
+      throw new Error("No token found. Are you logged in?");
     }
 
     const headers = {
@@ -30,12 +30,12 @@ async function getPost(id) {
     console.log("API response:", data);
 
     if (!response.ok) {
-      throw new Error(`Kunne ikke hente innlegget. Status: ${response.status}`);
+      throw new Error(`Could not fetch post. Status: ${response.status}`);
     }
 
     displayPost(data);
   } catch (error) {
-    console.error("Feil ved henting av innlegg:", error.message);
+    console.error("Error fetching post:", error.message);
   }
 }
 
@@ -51,7 +51,7 @@ function displayPost(postData) {
   const updatedElement = document.getElementById("updated");
 
   if (!titleElement || !bodyElement || !imageElement) {
-    console.error("Feil: Kunne ikke finne nødvendige HTML-elementer.");
+    console.error("Error: Could not find HTML-elements.");
     return;
   }
 
