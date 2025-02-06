@@ -1,0 +1,95 @@
+/* Generelle stiler for siden */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Stiler for navigasjon */
+a {
+  text-decoration: none;
+  color: #007bff;
+  margin: 10px;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Stiler for hovedinnhold */
+main {
+  width: 100%;
+  max-width: 600px;
+  margin-top: 50px;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+/* Form Styling */
+.editForm {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+/* Input og tekstboks stiler */
+label {
+  font-weight: bold;
+  margin-top: 15px;
+  display: block;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+/* Stiler for knappene */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button[type="button"] {
+  background-color: #dc3545;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+button[type="button"]:hover {
+  background-color: #c82333;
+}

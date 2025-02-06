@@ -15,7 +15,7 @@ export async function deletePost() {
     const data = await response.json();
     console.log(data);
     alert("Post deleted successfully!");
-    window.location.href = "/account/profilepage.html";
+    window.location.href = "/";
   } catch (error) {
     console.error("Error deleting post:", error);
     alert("Something went wrong. Please try again.");

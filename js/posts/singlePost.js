@@ -1,5 +1,6 @@
-import { BASE_URL, API_KEY } from "../api/api.js"; // ✅ Importer API-nøkkelen
+import { BASE_URL, API_KEY } from "../api/api.js"; // Importer API-nøkkelen
 import { getAccessToken } from "../api/auth.js";
+import { deletePost } from "./deletePost.js";
 
 // Hent ID fra URL-parametere
 const urlParams = new URLSearchParams(window.location.search);
@@ -9,7 +10,6 @@ const id = urlParams.get("id");
 async function getPost(id) {
   try {
     const token = getAccessToken();
-    console.log("Henter token:", token);
 
     if (!token) {
       throw new Error("No token found. Are you logged in?");
@@ -18,7 +18,7 @@ async function getPost(id) {
     const headers = {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
-      "X-Noroff-API-Key": API_KEY, // ✅ Legger til API-nøkkelen
+      "X-Noroff-API-Key": API_KEY, // Legger til API-nøkkelen
     };
 
     const response = await fetch(`${BASE_URL}social/posts/${id}`, {
@@ -41,7 +41,7 @@ async function getPost(id) {
 
 // Vis innlegget på siden
 function displayPost(postData) {
-  const post = postData.data; // ✅ Hent selve innlegget
+  const post = postData.data; // Hent selve innlegget
 
   // Finn HTML-elementer
   const titleElement = document.getElementById("title");
@@ -57,7 +57,7 @@ function displayPost(postData) {
 
   // Sett inn verdier
   titleElement.textContent = post.title;
-  authorElement.textContent = `By: ${post.author?.name || "Unknown"}`; // 🔹 Håndterer hvis forfatter mangler
+  authorElement.textContent = `By: ${post.author?.name || "Unknown"}`; // Håndterer hvis forfatter mangler
   bodyElement.textContent = post.body;
   updatedElement.textContent = `Last updated: ${new Date(
     post.updated
@@ -71,5 +71,31 @@ function displayPost(postData) {
     imageElement.style.display = "none"; // Skjul bildet hvis det ikke finnes
   }
 }
+
+// Finn knappene
+const editButton = document.getElementById("editButton");
+const deleteButton = document.getElementById("deleteButton");
+
+// Hent ID fra URL for å bruke i lenken
+
+const postId = urlParams.get("id");
+
+// Omdiriger til redigeringsside
+editButton.addEventListener("click", () => {
+  window.location.href = `/html/edit.html?id=${postId}`;
+});
+
+// Omdiriger til sletteside eller bekreft sletting
+deleteButton.addEventListener("click", () => {
+  const confirmDelete = confirm(
+    "Er du sikker på at du vil slette dette innlegget?"
+  );
+
+  if (confirmDelete) {
+    alert("Innlegget er slettet (ikke implementert ennå).");
+    deletePost(id);
+    // Her kan du eventuelt kalle en slettingsfunksjon senere
+  }
+});
 
 getPost(id);
