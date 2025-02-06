@@ -1,4 +1,6 @@
 /* Generelle stiler for siden */
+@import url(../css/header.css);
+
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f9;
@@ -11,10 +13,17 @@ body {
   height: 100vh;
 }
 
+/* Endre tekst-type for alle input-bokser */
+input,
+textarea {
+  font-family: "Arial", sans-serif; /* Endre til ønsket font */
+  font-size: 16px; /* Valgfritt: juster fontstørrelsen */
+}
+
 /* Stiler for navigasjon */
 a {
   text-decoration: none;
-  color: #007bff;
+  color: white;
   margin: 10px;
 }
 
