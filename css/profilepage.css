@@ -1,0 +1,56 @@
+/* Legg til container for innleggene */
+#posts {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(300px, 1fr)
+  ); /* Kolonner tilpasser seg automatisk */
+  gap: 20px; /* Avstand mellom innleggene */
+  margin-top: 40px; /* Litt avstand før innleggene vises */
+}
+
+.post {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.post h3 {
+  font-size: 1.5em;
+  color: #333;
+}
+
+.post p {
+  font-size: 1.1em;
+  color: #666;
+  margin-top: 10px;
+}
+
+/* Legg til styling for bilder i innleggene */
+.post img {
+  max-width: 100%; /* Sørger for at bildet ikke blir bredere enn containeren */
+  height: auto; /* Beholder bildets proporsjoner */
+  object-fit: cover; /* Sørger for at bildet dekker området uten å bli forvrengt */
+  border-radius: 8px; /* Gir bilde avrundede hjørner som matcher innlegget */
+  margin-top: 15px; /* Litt avstand over bildet */
+}
+
+/* Responsivitet for innlegg */
+@media (max-width: 768px) {
+  #posts {
+    grid-template-columns: 1fr; /* En kolonne på små skjermer */
+  }
+
+  .post {
+    padding: 15px;
+  }
+
+  .post h3 {
+    font-size: 1.3em;
+  }
+
+  .post p {
+    font-size: 1em;
+  }
+}

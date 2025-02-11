@@ -1,60 +1,87 @@
 import { BASE_URL } from "../api/api.js";
+import { apiKey } from "../api/apiKey.js";
 
+// Retrieve user data and access token from localStorage
 const user = JSON.parse(localStorage.getItem("user"));
 const name = user?.username || "defaultName";
-
 const accessToken = localStorage.getItem("accessToken");
 
+// If there's no access token, redirect to the login page
 if (!accessToken) {
   alert("You must be logged in to create a post.");
   window.location.href = "/account/login.html";
 }
 
+/**
+ * Handles the creation of a new post.
+ *
+ * @param {Event} event - The submit event triggered by the form.
+ * @throws Will throw an error if the post creation fails.
+ */
 export async function createPost(event) {
   event.preventDefault();
 
   const title = document.getElementById("title").value.trim();
   const body = document.getElementById("body").value.trim();
   const image = document.getElementById("image").value.trim();
-  const author = document.getElementById("author").value.trim();
+  const tagsInput = document.getElementById("tags").value.trim();
 
-  if (!title || !body || !image || !author) {
+  // Check if required fields are filled
+  if (!title || !body || !image) {
     alert("All fields are required");
     return;
   }
 
+  const tags = tagsInput ? tagsInput.split(",").map((tag) => tag.trim()) : [];
+
   const postData = {
     title,
     body,
-    tags: [],
+    tags: tags, // Tags added to the post data
     media: {
       url: image,
       alt: "Post image",
     },
-    author: {
-      name: author,
-    },
   };
 
   try {
-    const response = await fetch(`${BASE_URL}/social/posts`, {
+    const response = await fetch(`${BASE_URL}social/posts`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
+        "X-Noroff-API-KEY": apiKey,
       },
       body: JSON.stringify(postData),
     });
 
+    const responseData = await response.json();
+    console.log("API Response:", responseData);
+
+    // Check if the request was successful
     if (!response.ok) {
-      throw new Error("Failed to create post");
+      throw new Error(
+        `Failed to create post: ${responseData.message || response.status}`
+      );
     }
-    const data = await response.json();
-    console.log(data);
+
     alert("Post created successfully!");
-    window.location.href = "/account/profilepage.html";
+    window.location.href = "/";
   } catch (error) {
     console.error("Error creating post:", error);
     alert("Something went wrong. Please try again.");
   }
 }
+
+/**
+ * Initializes the form submission event listener when the document is loaded.
+ */
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("createPostForm");
+
+  if (form) {
+    form.addEventListener("submit", createPost);
+  } else {
+    console.error("Form not found! Check that the ID is correct.");
+  }
+});

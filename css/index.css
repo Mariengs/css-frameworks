@@ -20,24 +20,33 @@ body {
 
 #posts-container {
   margin: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 kolonner på større skjermer */
+  gap: 20px; /* Legger til plass mellom innleggene */
+  justify-items: center;
+  width: 100%;
 }
 
 /* Styler for postene */
 .post {
-  border: 1px solid #ccc; /* Gir en liten kant rundt posten */
-  padding: 10px; /* Litt avstand inne i posten */
-  margin-bottom: 15px; /* Litt avstand mellom postene */
-  width: 300px; /* Setter en fast bredde for posten */
-  font-size: 14px; /* Reduserer tekststørrelsen */
-  line-height: 1.5; /* Øker linjeavstanden for bedre lesbarhet */
-  overflow: hidden; /* Forhindrer at innhold strekker seg utenfor */
-  border-radius: 8px; /* Gir postene avrundede hjørner */
-  background-color: #f9f9f9; /* Lys bakgrunnsfarge for postene */
+  border: 1px solid #ccc;
+  padding: 20px;
+  font-size: 16px;
+  line-height: 1.6;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-sizing: border-box; /* Sørger for at padding og border ikke øker størrelsen */
+  display: flex;
+  flex-direction: column; /* Gjør at innholdet i posten er stablet vertikalt */
+  justify-content: space-between; /* Fordeler plassen jevnt */
+  height: 350px; /* Setter en fast høyde på innleggene */
+  overflow: hidden; /* Forhindrer at innholdet strekker seg utenfor */
 }
 
+/* Linkene inne i postene */
 .post-link {
-  text-decoration: none; /* Fjern understrek */
-  color: inherit; /* Behold tekstfarge */
+  text-decoration: none;
+  color: inherit;
 }
 
 .post:hover {
@@ -46,16 +55,28 @@ body {
 
 /* For bilder inne i postene */
 .post img {
-  width: 100%; /* Får bildet til å fylle bredden på posten */
-  height: auto; /* Beholder proporsjonene til bildet */
-  max-height: 200px; /* Setter en maks høyde for bildet */
-  object-fit: cover; /* Sørger for at bildet fyller området uten å bli forvrengt */
+  width: 100%;
+  height: auto;
+  max-height: 200px; /* Begrenser bildehøyden */
+  object-fit: cover;
+  margin-bottom: 10px; /* Litt avstand mellom bildet og teksten */
 }
 
+/* Tittel i posten */
 h3 {
   font-size: 1.5rem;
+  margin-bottom: 10px; /* Litt avstand under tittelen */
 }
 
+/* Tekst i posten */
 p {
   font-size: 1rem;
+  margin-bottom: 10px; /* Litt avstand under teksten */
+}
+
+/* Responsivitet: 2 kolonner på mindre skjermer */
+@media (max-width: 768px) {
+  #posts-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 kolonner på mindre skjermer */
+  }
 }

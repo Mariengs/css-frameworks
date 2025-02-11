@@ -1,82 +1,50 @@
 import { BASE_URL } from "../api/api.js";
-import { getAccessToken } from "../api/auth.js";
 
-const accessToken = localStorage.getItem("accessToken");
-const userData = localStorage.getItem("user");
+document.addEventListener("DOMContentLoaded", async () => {
+  const token = localStorage.getItem("accessToken");
 
-if (!accessToken || !userData) {
-  alert("You must be logged in to access this page.");
-  window.location.href = "login.html";
-}
-
-const user = JSON.parse(userData);
-const name = user?.username;
-
-if (!name) {
-  alert("Invalid user data. Please log in again.");
-  window.location.href = "/account/login.html";
-}
-
-export async function editPost(event) {
-  event.preventDefault();
-
-  const title = document.getElementById("title").value.trim();
-  const body = document.getElementById("body").value.trim();
-  const image = document.getElementById("image").value.trim();
-  const author = document.getElementById("author").value.trim();
-
-  if (!title || !body || !image || !author) {
-    alert("All fields are required");
+  if (!token) {
+    window.location.href = "login.html";
     return;
   }
-  const postData = {
-    title,
-    body,
-    image,
-    author,
-  };
 
-  try {
-    const response = await fetch(`${BASE_URL}/social/posts/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${getAccessToken()}`,
-      },
-      body: JSON.stringify(postData),
-    });
+  const userData = JSON.parse(localStorage.getItem("editingUser"));
 
-    if (!response.ok) {
-      throw new Error("Failed to update post");
-    }
-    const data = await response.json();
-    console.log(data);
-    alert("Post updated successfully!");
-    window.location.href = "/account/profilepage.html";
-  } catch (error) {
-    console.error("Error updating post:", error);
-    alert("Something went wrong. Please try again.");
+  if (!userData) {
+    window.location.href = "profile.html";
+    return;
   }
-}
 
-export async function deletePost() {
-  try {
-    const response = await fetch(`${BASE_URL}/social/posts/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${getAccessToken()}`,
-      },
-    });
-    if (!response.ok) {
-      throw new Error("Failed to delete post");
+  document.getElementById("name").value = userData.name;
+  document.getElementById("bio").value = userData.bio;
+
+  document.getElementById("saveButton").addEventListener("click", async () => {
+    const updatedUser = {
+      name: document.getElementById("name").value,
+      bio: document.getElementById("bio").value,
+    };
+
+    try {
+      const response = await fetch(`${BASE_URL}social/profiles${name}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedUser),
+      });
+
+      if (!response.ok) {
+        throw new Error("Kunne ikke oppdatere brukerdata");
+      }
+
+      const updatedData = await response.json();
+      localStorage.setItem("editingUser", JSON.stringify(updatedData)); // Oppdater lagrede data
+
+      window.location.href = "profile.html"; // Send tilbake til profil
+    } catch (error) {
+      console.error(error);
+      alert("Feil ved oppdatering av profil");
     }
-    const data = await response.json();
-    console.log(data);
-    alert("Post deleted successfully!");
-    window.location.href = "/";
-  } catch (error) {
-    console.error("Error deleting post:", error);
-    alert("Something went wrong. Please try again.");
-  }
-}
+  });
+});

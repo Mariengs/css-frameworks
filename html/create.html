@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="../js/posts/createPost.js"></script>
+    <link rel="stylesheet" href="/css/createpost.css" />
     <title>Create</title>
   </head>
   <body>
@@ -21,10 +23,15 @@
         <label for="image">Image URL:</label>
         <input type="url" id="image" name="image" required />
 
-        <label for="author">Author:</label>
-        <input type="text" id="author" name="author" />
+        <label for="tags">Tags:</label>
+        <input
+          type="text"
+          id="tags"
+          name="tags"
+          placeholder="Separate tags with commas"
+        />
 
-        <button type="submit">Create Post</button>
+        <button type="submit" id="createButton">Create Post</button>
       </form>
     </main>
   </body>

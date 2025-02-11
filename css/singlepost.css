@@ -32,7 +32,7 @@ main {
 
 .image {
   width: 300px; /* Sett fast bredde for bildet */
-  height: 200px; /* Sett fast høyde for bildet */
+  height: 400px; /* Sett fast høyde for bildet */
   border-radius: 8px;
   overflow: hidden; /* Skjuler eventuelle overskytende deler av bildet */
 }
