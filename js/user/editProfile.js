@@ -13,11 +13,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // Logg for å sjekke om tokenet er tilgjengelig
   console.log("AccessToken ved innlasting: ", token);
 
-  if (!token || !editingUser) {
-    console.error("Ingen tilgangstoken eller ingen brukerdata");
-    window.location.href = "login.html"; // Hvis ingen tilgangstoken eller brukerdata, gå til login
-    return;
-  }
+  // if (!token || !editingUser) {
+  //   console.error("Ingen tilgangstoken eller ingen brukerdata");
+  //   window.location.href = "login.html"; // Hvis ingen tilgangstoken eller brukerdata, gå til login
+  //   return;
+  // }
 
   // Fyll skjemaet med eksisterende brukerdata
   document.getElementById("name").value = editingUser.data.name || "";
@@ -30,15 +30,15 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", async (e) => {
     e.preventDefault(); // Forhindre at skjemaet sender på vanlig måte
 
-    // Sjekk om tilgangstoken finnes før vi prøver å sende data
+    // Hent token fra localStorage før innsending
     const token = localStorage.getItem("accessToken");
     console.log("Token ved innsending: ", token);
 
-    if (!token) {
-      console.error("Ingen tilgangstoken, kan ikke sende forespørsel.");
-      window.location.href = "login.html"; // Hvis ingen token finnes, send til login
-      return;
-    }
+    // if (!token) {
+    //   console.error("Ingen tilgangstoken, kan ikke sende forespørsel.");
+    //   window.location.href = "login.html"; // Hvis ingen token finnes, send til login
+    //   return;
+    // }
 
     const updatedData = {
       name: document.getElementById("name").value,
@@ -73,6 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const updatedUser = await response.json();
 
       // Lagre de oppdaterte dataene i localStorage
+      console.log("Oppdaterte brukerdata i localStorage", updatedUser);
       localStorage.setItem("editingUser", JSON.stringify(updatedUser));
 
       // Også oppdatere 'user' dataene for å reflektere navnet på tvers av applikasjonen
@@ -87,6 +88,8 @@ document.addEventListener("DOMContentLoaded", () => {
       // Logg for å se at vi har oppdatert profil og brukerdata
       console.log("Oppdatert brukerdata:", updatedUser);
 
+      // Husk å ikke overskrive tokenet, det skal ikke endres her
+      // Tokenet skal fortsatt være i localStorage etter oppdateringen.
       // Redirect til profilside etter oppdatering
       window.location.href = "/account/profilepage.html"; // Vi skal nå omdirigere til profil-siden
     } catch (error) {

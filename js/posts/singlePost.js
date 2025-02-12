@@ -88,7 +88,7 @@ const deleteButton = document.getElementById("deleteButton");
 if (editButton && deleteButton) {
   // Redirect to edit page
   editButton.addEventListener("click", () => {
-    window.location.href = `/html/edit.html?id=${id}`;
+    window.location.href = `/html/editPost.html?id=${id}`;
   });
 
   // Handle delete button click

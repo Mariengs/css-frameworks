@@ -50,12 +50,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     const img = document.createElement("img");
     img.src = profileData.data.avatar?.url || "https://via.placeholder.com/150"; // Fallback til plassholderbilde
     img.alt = profileData.data.avatar?.alt || "Profile image"; // Fallback for alt
+    img.id = "profile-image";
 
     // Profilbanner
     const banner = document.createElement("img");
     banner.src =
       profileData.data.banner?.url || "https://via.placeholder.com/1500x500"; // Fallback banner
     banner.alt = profileData.data.banner?.alt || "Banner image";
+    banner.id = "banner-image";
 
     // Navn
     const nameElement = document.createElement("h2");
@@ -83,9 +85,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const logoutButton = document.createElement("button");
     logoutButton.innerText = "Log Out";
     logoutButton.addEventListener("click", () => {
+      console.log("Logging out...");
+      // Fjern token og brukerdata ved utlogging
       localStorage.removeItem("accessToken");
       localStorage.removeItem("editingUser");
-      window.location.href = "login.html";
+      localStorage.removeItem("user"); // Sørg for å fjerne brukerdata også
+      window.location.href = "login.html"; // Send til login etter utlogging
     });
 
     // Legg til elementer i DOM
@@ -115,9 +120,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     const postsData = await postsResponse.json();
-
-    // Sjekk om innleggene finnes
-    console.log(postsData);
 
     // Bygg innleggene dynamisk og legg til i HTML
     postsData.data.forEach((post) => {

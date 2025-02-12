@@ -17,16 +17,24 @@
       </nav>
     </header>
     <main>
+      <h1>Profile page</h1>
       <div class="profile">
-        <h1>Profile page</h1>
-        <p id="name"></p>
-        <p id="bio"></p>
-        <ul id="interests"></ul>
+        <!-- Banner image -->
+        <div class="profile-banner">
+          <img id="banner-image" alt="Banner Image" />
+        </div>
+        <!-- Profile info -->
+
+        <div class="profile-info">
+          <p id="name"></p>
+          <p id="bio"></p>
+        </div>
       </div>
-      <div id="posts"></div>
-      <!-- Container for posts -->
-      <button id="editProfileButton">Edit Profile</button>
-      <!-- <button id="logoutButton">Log Out</button>  -->
+      <!-- Posts container -->
+      <div id="posts-container">
+        <h2>Posts</h2>
+        <div id="posts"></div>
+      </div>
     </main>
   </body>
 </html>
