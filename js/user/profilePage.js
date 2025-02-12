@@ -1,8 +1,6 @@
 import { BASE_URL } from "../api/api.js";
 import { apiKey } from "../api/apiKey.js";
 
-const name = JSON.parse(localStorage.getItem("user")).username;
-
 document.addEventListener("DOMContentLoaded", async () => {
   const profileContainer = document.querySelector(".profile");
   const postsContainer = document.getElementById("posts");
@@ -10,10 +8,23 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Hent token fra localStorage (fra innlogging)
   const token = localStorage.getItem("accessToken");
 
+  // Hvis token ikke finnes, omdiriger til login-siden
   if (!token) {
-    window.location.href = "login.html"; // Send brukeren til login hvis ikke innlogget
+    console.error("Token ikke funnet, omdirigerer til login");
+    window.location.href = "login.html"; // Send brukeren til login-siden hvis token ikke finnes
     return;
   }
+
+  // Hent brukerens data fra localStorage
+  const userData = JSON.parse(localStorage.getItem("user"));
+
+  if (!userData || !userData.username) {
+    console.error("Brukerdata er ikke tilgjengelig eller mangler username");
+    window.location.href = "login.html"; // Send brukeren til login-siden hvis dataene ikke finnes
+    return;
+  }
+
+  const name = userData.username; // Bruker navnet fra localStorage
 
   try {
     // Kall API for å hente brukerdata
@@ -30,42 +41,42 @@ document.addEventListener("DOMContentLoaded", async () => {
       throw new Error("Kunne ikke hente brukerdata");
     }
 
-    const userData = await response.json();
+    const profileData = await response.json();
 
     // Tøm container og bygg profilen dynamisk
     profileContainer.innerHTML = "";
 
     // Profilbilde
     const img = document.createElement("img");
-    img.src = userData.data.avatar?.url || "https://via.placeholder.com/150"; // Fallback til plassholderbilde
-    img.alt = userData.data.avatar?.alt || "Profile image"; // Fallback for alt
+    img.src = profileData.data.avatar?.url || "https://via.placeholder.com/150"; // Fallback til plassholderbilde
+    img.alt = profileData.data.avatar?.alt || "Profile image"; // Fallback for alt
 
     // Profilbanner
     const banner = document.createElement("img");
     banner.src =
-      userData.data.banner?.url || "https://via.placeholder.com/1500x500"; // Fallback banner
-    banner.alt = userData.data.banner?.alt || "Banner image";
+      profileData.data.banner?.url || "https://via.placeholder.com/1500x500"; // Fallback banner
+    banner.alt = profileData.data.banner?.alt || "Banner image";
 
     // Navn
     const nameElement = document.createElement("h2");
-    nameElement.innerText = userData.data.name || "No name provided";
+    nameElement.innerText = profileData.data.name || "No name provided";
 
     // Bio
     const bioElement = document.createElement("p");
-    bioElement.innerText = userData.data.bio || "No bio available"; // Fallback hvis bio er null
+    bioElement.innerText = profileData.data.bio || "No bio available"; // Fallback hvis bio er null
 
     // Email
     const emailElement = document.createElement("p");
     emailElement.innerText = `Email: ${
-      userData.data.email || "No email provided"
+      profileData.data.email || "No email provided"
     }`;
 
     // Rediger profil-knapp
-    const editPageButton = document.createElement("button");
-    editPageButton.innerText = "Edit Profile";
-    editPageButton.addEventListener("click", () => {
-      localStorage.setItem("editingUser", JSON.stringify(userData)); // Lagre data midlertidig
-      window.location.href = "edit.html";
+    const editProfileButton = document.createElement("button");
+    editProfileButton.innerText = "Edit Profile";
+    editProfileButton.addEventListener("click", () => {
+      localStorage.setItem("editingUser", JSON.stringify(profileData)); // Lagre data midlertidig
+      window.location.href = "editProfile.html"; // Endre URL-en her hvis nødvendig
     });
 
     // Logg ut-knapp
@@ -83,7 +94,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     profileContainer.appendChild(nameElement);
     profileContainer.appendChild(bioElement);
     profileContainer.appendChild(emailElement);
-    profileContainer.appendChild(editPageButton);
+    profileContainer.appendChild(editProfileButton);
     profileContainer.appendChild(logoutButton);
 
     // Hent brukerens innlegg
