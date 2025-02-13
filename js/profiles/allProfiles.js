@@ -97,12 +97,12 @@ async function renderProfiles(profiles) {
     profileStats.textContent = `Innlegg: ${profile._count.posts}, Følgere: ${profile._count.followers}, Følger: ${profile._count.following}`;
     profileElement.appendChild(profileStats);
 
-    if (profile.banner && profile.banner.url) {
-      const bannerImage = document.createElement("img");
-      bannerImage.src = profile.banner.url;
-      bannerImage.alt = profile.banner.alt || "Banner";
-      profileElement.appendChild(bannerImage);
-    }
+    // if (profile.banner && profile.banner.url) {
+    //   const bannerImage = document.createElement("img");
+    //   bannerImage.src = profile.banner.url;
+    //   bannerImage.alt = profile.banner.alt || "Banner";
+    //   profileElement.appendChild(bannerImage);
+    // }
 
     profileLink.appendChild(profileElement);
     profilesContainer.appendChild(profileLink);

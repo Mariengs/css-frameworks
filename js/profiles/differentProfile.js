@@ -92,19 +92,39 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (posts && Array.isArray(posts) && posts.length > 0) {
       posts.forEach((post) => {
+        // Opprett lenke-element for å gjøre innlegget klikkbart
+        const postLink = document.createElement("a");
+        postLink.href = `../html/singlepost.html?id=${post.id}`; // Lenke til single post
+        postLink.classList.add("post-link"); // CSS-klasse for styling
+
         const postElement = document.createElement("div");
         postElement.classList.add("post");
 
+        // Legg til tittel
         const postTitle = document.createElement("h3");
         postTitle.textContent = post.title || "Uten tittel";
 
+        // Legg til innhold (body)
         const postBody = document.createElement("p");
         postBody.textContent = post.body || "Ingen innhold tilgjengelig";
 
+        // Legg til bilde hvis det finnes
+        if (post.media && post.media.url) {
+          const postImage = document.createElement("img");
+          postImage.src = post.media.url;
+          postImage.alt = post.media.alt || "Post image";
+          postElement.appendChild(postImage);
+        }
+
+        // Legg til tittel og innhold til postElement
         postElement.appendChild(postTitle);
         postElement.appendChild(postBody);
 
-        postsContainer.appendChild(postElement);
+        // Legg postElement til i lenken
+        postLink.appendChild(postElement);
+
+        // Legg postLink til i containeren
+        postsContainer.appendChild(postLink);
       });
     } else {
       postsContainer.innerHTML = "Ingen innlegg funnet for denne brukeren.";
