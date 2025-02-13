@@ -4,33 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="module" src="js/index.js"></script>
-
     <link rel="stylesheet" href="/css/index.css" />
     <title>Posts homepage</title>
   </head>
   <body>
+    <header>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="account/login.html">Login</a>
+        <a href="account/register.html">Register</a>
+        <a href="account/profilepage.html">Profile</a>
+        <a href="html/allProfiles.html" id="view-all-profiles-link"
+          >See All Profiles</a
+        >
+        <a href="/html/create.html">Create post</a>
+        <button id="logoutButton">Log out</button>
+      </nav>
+    </header>
     <main>
-      <header>
-        <nav>
-          <a href="index.html">Home</a>
-          <a href="account/login.html">Login</a>
-          <a href="account/register.html">Register</a>
-          <a href="account/profilepage.html">Profile</a>
-          <button
-            class="createbutton"
-            onclick="window.location.href='/html/create.html'"
-          >
-            Create New Post
-          </button>
-        </nav>
-      </header>
+      <!-- Legg til søkefelt i headeren eller et passende sted på siden -->
+      <input type="text" id="searchInput" placeholder="Søk etter innlegg..." />
+      <button id="searchButton">Søk</button>
+
       <h1>Posts Homepage</h1>
       <section class="posts-container">
         <h2>Latest posts</h2>
         <div class="posts"></div>
         <div id="posts-container"></div>
-        <button class="load-more-btn" type="button">See all posts</button>
-        <!-- This is a placeholder for the "See all posts" button -->
       </section>
       <div class=""></div>
     </main>

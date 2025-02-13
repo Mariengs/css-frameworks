@@ -47,7 +47,7 @@ async function registerUser(requestBody) {
     const data = await response.json();
     localStorage.setItem("accessToken", data.accessToken);
     alert("Registration successful! Welcome!");
-    window.location.href = "/";
+    window.location.href = "login.html";
   } catch (error) {
     alert(`Something went wrong: ${error.message}`);
   }

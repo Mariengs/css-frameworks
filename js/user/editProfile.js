@@ -13,12 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Logg for å sjekke om tokenet er tilgjengelig
   console.log("AccessToken ved innlasting: ", token);
 
-  // if (!token || !editingUser) {
-  //   console.error("Ingen tilgangstoken eller ingen brukerdata");
-  //   window.location.href = "login.html"; // Hvis ingen tilgangstoken eller brukerdata, gå til login
-  //   return;
-  // }
-
   // Fyll skjemaet med eksisterende brukerdata
   document.getElementById("name").value = editingUser.data.name || "";
   document.getElementById("bio").value = editingUser.data.bio || "";
@@ -28,27 +22,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Når skjemaet blir sendt, oppdater brukerdataene
   form.addEventListener("submit", async (e) => {
-    e.preventDefault(); // Forhindre at skjemaet sender på vanlig måte
+    e.preventDefault();
 
     // Hent token fra localStorage før innsending
     const token = localStorage.getItem("accessToken");
-    console.log("Token ved innsending: ", token);
-
-    // if (!token) {
-    //   console.error("Ingen tilgangstoken, kan ikke sende forespørsel.");
-    //   window.location.href = "login.html"; // Hvis ingen token finnes, send til login
-    //   return;
-    // }
 
     const updatedData = {
       name: document.getElementById("name").value,
       bio: document.getElementById("bio").value,
       email: document.getElementById("email").value,
       avatar: {
-        url: document.getElementById("avatar").value, // Send som objekt med url
+        url: document.getElementById("avatar").value,
       },
       banner: {
-        url: document.getElementById("banner").value, // Send som objekt med url
+        url: document.getElementById("banner").value,
       },
     };
     console.log("Oppdaterte data:", updatedData);
@@ -76,22 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("Oppdaterte brukerdata i localStorage", updatedUser);
       localStorage.setItem("editingUser", JSON.stringify(updatedUser));
 
-      // Også oppdatere 'user' dataene for å reflektere navnet på tvers av applikasjonen
-      localStorage.setItem(
-        "user",
-        JSON.stringify({
-          username: updatedUser.data.username, // Brukerens navn etter oppdatering
-          name: updatedUser.data.name, // Lagre det nye navnet
-        })
-      );
-
-      // Logg for å se at vi har oppdatert profil og brukerdata
-      console.log("Oppdatert brukerdata:", updatedUser);
-
-      // Husk å ikke overskrive tokenet, det skal ikke endres her
-      // Tokenet skal fortsatt være i localStorage etter oppdateringen.
-      // Redirect til profilside etter oppdatering
-      window.location.href = "/account/profilepage.html"; // Vi skal nå omdirigere til profil-siden
+      window.location.href = "/account/profilepage.html";
     } catch (error) {
       console.error(error);
       alert("Det oppstod en feil ved oppdatering av profilen.");

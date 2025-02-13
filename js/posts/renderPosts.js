@@ -1,4 +1,5 @@
 import { getAllPosts } from "/js/posts/getAllPosts.js";
+import { BASE_URL } from "../api/api.js";
 
 /**
  * Renders a list of posts onto the page.
@@ -28,7 +29,6 @@ export async function renderPosts() {
    * Iterates through the posts and adds them to the page.
    * Each post is wrapped in an `<a>` element with a link to a single post view page.
    */
-
   posts.forEach((post) => {
     // Opprett lenke-elementet for hele posten
     const postLink = document.createElement("a");
@@ -59,10 +59,94 @@ export async function renderPosts() {
     postElement.appendChild(postTitle);
     postElement.appendChild(postBody);
 
-    // Gjør hele postElement klikkbart ved å legge det inne i postLink
+    // Legg til tittel, innhold og bilde i lenken
     postLink.appendChild(postElement);
 
     // Legg postLink til i containeren
     postsContainer.appendChild(postLink);
   });
+
+  // Søke funksjonalitet
+  const searchInput = document.getElementById("searchInput");
+  const searchButton = document.getElementById("searchButton");
+
+  // Eventlistener for søkeknappen
+  searchButton.addEventListener("click", async () => {
+    const query = searchInput.value.trim();
+    if (query) {
+      // Utfør søket etter innlegg basert på spørringen
+      const filteredPosts = await searchPosts(query);
+      renderFilteredPosts(filteredPosts); // Vis de filtrerte postene
+    }
+  });
+
+  // Funksjon for å søke innlegg basert på spørringen
+  async function searchPosts(query) {
+    const accessToken = localStorage.getItem("accessToken");
+    const API_KEY = "233315a6-8ab8-4b0f-a8d5-0f4d19e5106b";
+
+    const options = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`, // Bearer token for brukeren
+        "X-Noroff-API-Key": API_KEY, // API-nøkkelen for applikasjonen
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      const response = await fetch(
+        `${BASE_URL}social/posts/search?q=${query}`,
+        options
+      );
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Error fetching posts:", errorData);
+        throw new Error(errorData.message || "Failed to fetch posts");
+      }
+
+      const data = await response.json();
+      return data.data; // Returner innleggene som svar
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+      return []; // Returner tom array hvis ingen resultater
+    }
+  }
+
+  // Funksjon for å vise de filtrerte postene
+  function renderFilteredPosts(posts) {
+    const postsContainer = document.getElementById("posts-container");
+    postsContainer.innerHTML = ""; // Rens eventuelle tidligere data før visning
+
+    if (posts.length === 0) {
+      postsContainer.innerHTML = "<p>Ingen innlegg funnet for søket.</p>";
+      return;
+    }
+
+    posts.forEach((post) => {
+      const postLink = document.createElement("a");
+      postLink.href = `../html/singlepost.html?id=${post.id}`; // URL med innleggets ID
+      postLink.classList.add("post-link"); // CSS-klasse for styling
+
+      const postElement = document.createElement("div");
+      postElement.classList.add("post"); // CSS-klasse for styling
+
+      const postTitle = document.createElement("h3");
+      postTitle.textContent = post.title;
+
+      const postBody = document.createElement("p");
+      postBody.textContent = post.body; // Viser innholdet i innlegget
+
+      if (post.media) {
+        const postImage = document.createElement("img");
+        postImage.src = post.media.url;
+        postImage.alt = post.media.alt || "Post image";
+        postElement.appendChild(postImage);
+      }
+
+      postElement.appendChild(postTitle);
+      postElement.appendChild(postBody);
+      postLink.appendChild(postElement);
+      postsContainer.appendChild(postLink);
+    });
+  }
 }

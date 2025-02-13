@@ -26,7 +26,8 @@ async function getPost(id) {
       "X-Noroff-API-Key": apiKey,
     };
 
-    const response = await fetch(`${BASE_URL}social/posts/${id}`, {
+    // Legg til _author flagget for å hente forfatteren
+    const response = await fetch(`${BASE_URL}social/posts/${id}?_author=true`, {
       method: "GET",
       headers,
     });
@@ -52,7 +53,7 @@ async function getPost(id) {
 function displayPost(postData) {
   const post = postData.data; // Get the post data
 
-  // Find HTML elements
+  // Finn HTML-elementer
   const titleElement = document.getElementById("title");
   const authorElement = document.getElementById("author");
   const bodyElement = document.getElementById("body");
@@ -64,44 +65,66 @@ function displayPost(postData) {
     return;
   }
 
-  // Set the values for the elements
+  // Sett verdiene for elementene
   titleElement.textContent = post.title;
-  authorElement.textContent = `By: ${post.author?.name || "Unknown"}`; // Handle if author is missing
+  authorElement.textContent = `By: ${post.author?.name || "Unknown"}`; // Håndter hvis forfatter er ukjent
   bodyElement.textContent = post.body;
   updatedElement.textContent = `Last updated: ${new Date(
     post.updated
   ).toLocaleString()}`;
 
-  // Handle image (if available)
+  // Håndter bilde (hvis tilgjengelig)
   if (post.media && post.media.url) {
     imageElement.src = post.media.url;
     imageElement.alt = post.media.alt || "Post image";
   } else {
-    imageElement.style.display = "none"; // Hide image if it doesn't exist
+    imageElement.style.display = "none"; // Skjul bilde hvis det ikke finnes
   }
-}
 
-// Find buttons
-const editButton = document.getElementById("editButton");
-const deleteButton = document.getElementById("deleteButton");
+  // Finn knappene for redigering og sletting
+  const editButton = document.getElementById("editButton");
+  const deleteButton = document.getElementById("deleteButton");
 
-if (editButton && deleteButton) {
-  // Redirect to edit page
-  editButton.addEventListener("click", () => {
-    window.location.href = `/html/editPost.html?id=${id}`;
-  });
+  if (editButton && deleteButton) {
+    // Redirect to edit page
+    editButton.addEventListener("click", () => {
+      window.location.href = `/html/editPost.html?id=${id}`;
+    });
 
-  // Handle delete button click
-  deleteButton.addEventListener("click", () => {
-    const confirmDelete = confirm("Are you sure you want to delete this post?");
+    // Handle delete button click
+    deleteButton.addEventListener("click", () => {
+      const confirmDelete = confirm(
+        "Are you sure you want to delete this post?"
+      );
 
-    if (confirmDelete) {
-      alert("Post deleted successfully!");
-      deletePost(id); // Pass the ID to the deletePost function
-    }
-  });
-} else {
-  console.error("Delete button or Edit button not found.");
+      if (confirmDelete) {
+        alert("Post deleted successfully!");
+        deletePost(id); // Pass the ID to the deletePost function
+      }
+    });
+  } else {
+    console.error("Delete button or Edit button not found.");
+  }
+
+  // Feilsøking: Skriv ut currentUser og post.author
+  const currentUser = JSON.parse(localStorage.getItem("user"));
+  console.log("Current user from localStorage:", currentUser);
+  console.log("Post author from API:", post.author);
+
+  // Kontrollere om brukeren er eieren av innlegget
+  if (
+    currentUser &&
+    post.author?.name &&
+    currentUser.username === post.author.name
+  ) {
+    // Hvis brukeren er eieren, vis "Edit" og "Delete" knappene
+    editButton.style.display = "inline-block"; // Vis edit-knapp
+    deleteButton.style.display = "inline-block"; // Vis delete-knapp
+  } else {
+    // Hvis ikke, skjul knappene
+    editButton.style.display = "none";
+    deleteButton.style.display = "none";
+  }
 }
 
 // Fetch the post when the page loads
