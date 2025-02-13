@@ -36,7 +36,7 @@ async function searchProfiles(query) {
   }
 }
 
-// Funksjon for å hente alle profiler (som allerede er definert)
+// Funksjon for å hente alle profiler
 async function getAllProfiles() {
   try {
     if (!accessToken) {
@@ -59,6 +59,7 @@ async function getAllProfiles() {
     }
 
     const data = await response.json();
+
     return data.data; // Returner profiler fra API-responsen
   } catch (error) {
     console.error("Feil ved henting av profiler:", error);
@@ -97,16 +98,76 @@ async function renderProfiles(profiles) {
     profileStats.textContent = `Innlegg: ${profile._count.posts}, Følgere: ${profile._count.followers}, Følger: ${profile._count.following}`;
     profileElement.appendChild(profileStats);
 
-    // if (profile.banner && profile.banner.url) {
-    //   const bannerImage = document.createElement("img");
-    //   bannerImage.src = profile.banner.url;
-    //   bannerImage.alt = profile.banner.alt || "Banner";
-    //   profileElement.appendChild(bannerImage);
-    // }
+    // Legg til Follow/Unfollow knapp
+    const followButton = document.createElement("button");
+    followButton.classList.add("follow-button");
 
+    // Sjekk om brukeren allerede følger denne profilen
+    if (profile.following) {
+      followButton.innerText = "Unfollow";
+    } else {
+      followButton.innerText = "Follow";
+    }
+
+    // Legg eventlistener for Follow/Unfollow
+    followButton.addEventListener("click", async (event) => {
+      // Stopper lenkeklikking og hindrer omdirigering
+      event.preventDefault();
+
+      // Hvis profile.name er ugyldig, ikke fortsett med toggleFollow
+      if (!profile.name) {
+        console.error("Ugyldig profilnavn:", profile);
+        return;
+      }
+
+      // Hvis vi prøver å unfollow, sørg for at vi har riktig profilnavn
+      const action = profile.following ? "unfollow" : "follow";
+
+      await toggleFollow(profile.name, action); // Passer riktig navn her
+
+      // Oppdater teksten på knappen etter handlingen
+      followButton.innerText = action === "follow" ? "Unfollow" : "Follow";
+    });
+
+    profileElement.appendChild(followButton);
     profileLink.appendChild(profileElement);
     profilesContainer.appendChild(profileLink);
   });
+}
+
+async function toggleFollow(profileName, action) {
+  const accessToken = localStorage.getItem("accessToken");
+
+  // Hvis profileName er ugyldig, returner tidlig
+  if (!profileName) {
+    console.error("Profilnavn er null eller ugyldig.");
+    return;
+  }
+
+  try {
+    let url = `${BASE_URL}social/profiles/${profileName}/follow`; // Standard for follow
+    if (action === "unfollow") {
+      url = `${BASE_URL}social/profiles/${profileName}/unfollow`; // Spesifikk for unfollow
+    }
+
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "X-Noroff-API-Key": apiKey,
+        "Content-Type": "application/json", // Vi kan fortsatt ha Content-Type, men ingen body
+      },
+      // Ingen body er nødvendig!
+    });
+
+    if (!response.ok) {
+      throw new Error(`Feil ved ${action} profil: ${response.statusText}`);
+    }
+
+    console.log(`${action}ed profile: ${profileName}`);
+  } catch (error) {
+    console.error(`Feil ved å ${action} profil:`, error);
+  }
 }
 
 // Kjør funksjon for å hente og vise profiler ved lastning

@@ -81,17 +81,22 @@ document.addEventListener("DOMContentLoaded", async () => {
       window.location.href = "editProfile.html"; // Endre URL-en her hvis nødvendig
     });
 
-    // Logg ut-knapp
-    const logoutButton = document.createElement("button");
-    logoutButton.innerText = "Log Out";
-    logoutButton.addEventListener("click", () => {
-      console.log("Logging out...");
-      // Fjern token og brukerdata ved utlogging
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("editingUser");
-      localStorage.removeItem("user"); // Sørg for å fjerne brukerdata også
-      window.location.href = "login.html"; // Send til login etter utlogging
-    });
+    // Hent logoutButton fra HTML og legg til event listener
+    const logoutButton = document.getElementById("logoutButton");
+
+    if (logoutButton) {
+      logoutButton.addEventListener("click", () => {
+        console.log("Logging out...");
+
+        // Fjern token og brukerdata ved utlogging
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("editingUser");
+        localStorage.removeItem("user"); // Sørg for å fjerne brukerdata også
+
+        // Send til login-siden etter utlogging
+        window.location.href = "login.html";
+      });
+    }
 
     // Legg til elementer i DOM
     profileContainer.appendChild(banner);
@@ -100,7 +105,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     profileContainer.appendChild(bioElement);
     profileContainer.appendChild(emailElement);
     profileContainer.appendChild(editProfileButton);
-    profileContainer.appendChild(logoutButton);
 
     // Hent brukerens innlegg
     const postsResponse = await fetch(

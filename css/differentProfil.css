@@ -1,4 +1,4 @@
-/* Generell styling */
+@import url(../css/header.css);
 body {
   font-family: "Arial", sans-serif;
   margin: 0;

@@ -1,4 +1,5 @@
-/* styles.css */
+@import url(../css/header.css);
+@import url(../css/searchbar.css);
 
 body {
   font-family: Arial, sans-serif;

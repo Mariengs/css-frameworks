@@ -1,0 +1,28 @@
+/* Container for søkeboksen og knappen */
+#searchInput,
+#searchButton {
+  font-family: Arial, sans-serif; /* Angi skrifttype for begge elementene */
+  padding: 10px; /* Legg til polstring for bedre plass til teksten */
+  margin: 5px; /* Litt mellomrom mellom elementene */
+  border-radius: 4px; /* Runder hjørnene */
+  border: 1px solid #ccc; /* Lys kantlinje rundt input og button */
+}
+
+#searchInput {
+  width: 250px; /* Sett en bredde for søkeboksen */
+  box-sizing: border-box; /* Sørg for at padding og border inkluderes i bredden */
+}
+
+#searchButton {
+  background-color: #4caf50; /* Grønn bakgrunnsfarge */
+  color: white; /* Hvit tekstfarge */
+  cursor: pointer; /* Endre musepekeren til en hånd for å indikere klikkbarhet */
+}
+
+#searchButton:hover {
+  background-color: #45a049; /* Mørkere grønn når knappen er hoveret */
+}
+
+#searchButton:active {
+  background-color: #3e8e41; /* Endre fargen når knappen er trykket */
+}
