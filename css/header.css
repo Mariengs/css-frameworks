@@ -2,6 +2,8 @@
 header {
   background-color: #555;
   padding: 10px 20px;
+  width: 100%; /* Får headeren til å strekke seg over hele bredden */
+  box-sizing: border-box; /* Sørger for at padding ikke påvirker bredde */
 }
 
 nav {

@@ -8,13 +8,13 @@ body {
   height: 100vh; /* Ensure body takes the full viewport height */
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 a {
   margin: 10px;
   text-decoration: none;
   color: #007bff;
-  font-weight: bold;
 }
 
 main {
@@ -30,6 +30,7 @@ main {
 .createPostForm {
   display: flex;
   flex-direction: column;
+  padding: 40px;
 }
 
 .createPostForm label {

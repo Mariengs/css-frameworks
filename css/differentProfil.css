@@ -1,9 +1,24 @@
 @import url(../css/header.css);
 body {
   font-family: "Arial", sans-serif;
+  background-color: #f8f8f8;
   margin: 0;
   padding: 0;
-  background-color: #f0f0f0;
+  color: #333;
+  height: 100vh; /* Ensure body takes the full viewport height */
+  display: flex;
+  flex-direction: column;
+  text-transform: capitalize;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 20px;
+}
+main {
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
 }
 
 /* Container for profilen */
@@ -39,7 +54,7 @@ body {
 
 /* Profilnavn og bio */
 #profile-name {
-  font-size: 1.8em; /* Litt mindre tekst */
+  font-size: 24px;
   font-weight: bold;
   margin-top: 10px;
   color: #333;
@@ -52,13 +67,28 @@ body {
   line-height: 1.4;
 }
 
+.follow-button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+  transition: background-color 0.3s ease-in-out;
+}
+
 /* Styling for posts container */
 #posts-container {
-  display: flex; /* Bruk flexbox for horisontal visning */
-  flex-wrap: wrap; /* La innleggene bryte til neste rad hvis det ikke er nok plass */
-  justify-content: space-between; /* Fordeler innleggene jevnt */
-  gap: 15px; /* Avstand mellom innleggene */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Sentrerer innleggene */
+  gap: 20px; /* Mellomrom mellom innleggene */
   margin-top: 20px;
+  max-width: 1000px; /* Begrenser bredden for å unngå at innleggene spres utover */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Styling for hvert innlegg */
@@ -66,7 +96,7 @@ body {
   text-decoration: none;
   display: block;
   width: 22%; /* Standard bredde for innleggene (4 innlegg per linje) */
-  box-sizing: border-box; /* Sørger for at padding og border ikke påvirker størrelsen */
+  box-sizing: border-box;
 }
 
 /* Stil for innleggene */

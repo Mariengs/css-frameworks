@@ -85,3 +85,25 @@ document.addEventListener("DOMContentLoaded", () => {
     console.error("Form not found! Check that the ID is correct.");
   }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("createPostForm");
+  const logoutButton = document.getElementById("logoutButton");
+
+  if (form) {
+    form.addEventListener("submit", createPost);
+  } else {
+    console.error("Form not found! Check that the ID is correct.");
+  }
+
+  // Legger til logout-funksjonalitet
+  if (logoutButton) {
+    logoutButton.addEventListener("click", () => {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("user");
+      window.location.href = "/account/login.html"; // Omdirigerer til login
+    });
+  } else {
+    console.error("Logout button not found! Check that the ID is correct.");
+  }
+});

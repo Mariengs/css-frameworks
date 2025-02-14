@@ -145,27 +145,63 @@ async function toggleFollow(profileName, action) {
   }
 
   try {
+    // Bygg URL for follow eller unfollow
     let url = `${BASE_URL}social/profiles/${profileName}/follow`; // Standard for follow
     if (action === "unfollow") {
-      url = `${BASE_URL}social/profiles/${profileName}/unfollow`; // Spesifikk for unfollow
+      // Sjekk om du allerede følger profilen før du prøver å unfollowe
+      const followingResponse = await fetch(
+        `${BASE_URL}social/profiles/me/following`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "X-Noroff-API-Key": apiKey,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const followingData = await followingResponse.json();
+      const isFollowing = followingData.data.following.some(
+        (follow) => follow.name === profileName
+      );
+
+      if (!isFollowing) {
+        console.error("Du følger allerede ikke denne profilen.");
+        return; // Hvis du ikke følger, gjør ingen endring
+      }
+
+      url = `${BASE_URL}social/profiles/${profileName}/unfollow`; // URL for unfollow
     }
 
+    console.log("Request URL:", url); // Logg URL-en for debugging
+
+    // Send forespørselen
     const response = await fetch(url, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${accessToken}`,
         "X-Noroff-API-Key": apiKey,
-        "Content-Type": "application/json", // Vi kan fortsatt ha Content-Type, men ingen body
+        "Content-Type": "application/json", // Ingen body trengs, men Content-Type er fortsatt viktig
       },
-      // Ingen body er nødvendig!
     });
 
+    // Logg responsen for å få mer informasjon ved feil
+    const responseData = await response.json();
+
     if (!response.ok) {
+      // Hvis svaret ikke er ok, logg feilmeldingen
+      console.error("Feil ved forespørsel:", responseData);
       throw new Error(`Feil ved ${action} profil: ${response.statusText}`);
     }
 
+    // Hvis alt går bra, logg suksess
     console.log(`${action}ed profile: ${profileName}`);
+
+    // Eventuelt logge den returnerte dataen fra serveren for debugging
+    console.log("Responsdata:", responseData);
   } catch (error) {
+    // Logg eventuelle feil
     console.error(`Feil ved å ${action} profil:`, error);
   }
 }

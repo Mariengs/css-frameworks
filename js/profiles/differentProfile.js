@@ -64,12 +64,42 @@ document.addEventListener("DOMContentLoaded", async () => {
     return data.data; // Returner innleggene fra API-responsen
   }
 
+  // Funksjon for å håndtere follow/unfollow på profilsiden
+  async function toggleFollowOnProfile(profileName) {
+    const accessToken = localStorage.getItem("accessToken");
+
+    // Vi antar at knappen alltid skal endre status (uten å sjekke om vi allerede følger)
+    const url = `${BASE_URL}social/profiles/${profileName}/follow`; // Alltid follow
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "X-Noroff-API-Key": apiKey,
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error("Feil ved å endre follow status:", data);
+      throw new Error(`Feil ved å follow profil: ${response.statusText}`);
+    }
+
+    console.log(`Følger profil: ${profileName}`);
+
+    // Oppdater knappestatus etter handling (denne blir alltid "Unfollow" etter en "Follow")
+    const followButton = document.getElementById("follow-button");
+    followButton.textContent = "Unfollow";
+  }
+
   try {
     // Hent profilinformasjon
     const profile = await getProfileData(name);
 
     // Hent brukerens innlegg
     const posts = await getUserPosts(name);
+
     if (profile.banner && profile.banner.url) {
       document.getElementById("profile-banner").src = profile.banner.url;
       document.getElementById("profile-banner").alt =
@@ -92,23 +122,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (posts && Array.isArray(posts) && posts.length > 0) {
       posts.forEach((post) => {
-        // Opprett lenke-element for å gjøre innlegget klikkbart
         const postLink = document.createElement("a");
-        postLink.href = `../html/singlepost.html?id=${post.id}`; // Lenke til single post
-        postLink.classList.add("post-link"); // CSS-klasse for styling
+        postLink.href = `../html/singlepost.html?id=${post.id}`;
+        postLink.classList.add("post-link");
 
         const postElement = document.createElement("div");
         postElement.classList.add("post");
 
-        // Legg til tittel
         const postTitle = document.createElement("h3");
         postTitle.textContent = post.title || "Uten tittel";
 
-        // Legg til innhold (body)
         const postBody = document.createElement("p");
         postBody.textContent = post.body || "Ingen innhold tilgjengelig";
 
-        // Legg til bilde hvis det finnes
         if (post.media && post.media.url) {
           const postImage = document.createElement("img");
           postImage.src = post.media.url;
@@ -116,19 +142,23 @@ document.addEventListener("DOMContentLoaded", async () => {
           postElement.appendChild(postImage);
         }
 
-        // Legg til tittel og innhold til postElement
         postElement.appendChild(postTitle);
         postElement.appendChild(postBody);
-
-        // Legg postElement til i lenken
         postLink.appendChild(postElement);
-
-        // Legg postLink til i containeren
         postsContainer.appendChild(postLink);
       });
     } else {
       postsContainer.innerHTML = "Ingen innlegg funnet for denne brukeren.";
     }
+
+    // Legg til Follow/Unfollow funksjonalitet
+    const followButton = document.getElementById("follow-button");
+    followButton.addEventListener("click", async () => {
+      await toggleFollowOnProfile(name);
+    });
+
+    // Sett knappetekst til "Follow" som standard
+    followButton.textContent = "Follow";
   } catch (error) {
     console.error("Feil ved lasting av profildata:", error);
   }
