@@ -91,7 +91,7 @@ async function renderProfiles(profiles) {
     profileElement.appendChild(profileName);
 
     const profileBio = document.createElement("p");
-    profileBio.textContent = profile.bio || "Ingen bio tilgjengelig";
+    profileBio.textContent = profile.bio || "No bio available";
     profileElement.appendChild(profileBio);
 
     const profileStats = document.createElement("p");
@@ -167,7 +167,7 @@ async function toggleFollow(profileName, action) {
       );
 
       if (!isFollowing) {
-        console.error("Du følger allerede ikke denne profilen.");
+        console.error("You are not following this profile.");
         return; // Hvis du ikke følger, gjør ingen endring
       }
 
