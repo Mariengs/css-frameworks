@@ -79,8 +79,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     let isFollowing = await checkFollowStatus(name);
-    const url = `${BASE_URL}social/profiles/${name}/follow`;
-    const method = isFollowing ? "DELETE" : "PUT";
+    const url = isFollowing
+      ? `${BASE_URL}social/profiles/${name}/unfollow`
+      : `${BASE_URL}social/profiles/${name}/follow`;
+
+    const method = isFollowing ? "PUT" : "PUT"; // Begge forespørslene er PUT, men peker til ulike endepunkter
 
     try {
       const response = await fetch(url, {
@@ -133,27 +136,43 @@ document.addEventListener("DOMContentLoaded", async () => {
       profile.avatar?.alt || "Avatar";
 
     const postsContainer = document.getElementById("posts-container");
-    postsContainer.innerHTML = posts.length
-      ? posts
-          .map(
-            (post) => `
-          <a href="../html/singlepost.html?id=${post.id}" class="post-link">
-            <div class="post">
-              <h3>${post.title || "No title available"}</h3>
-              <p>${post.body || "No body available"}</p>
-              ${
-                post.media?.url
-                  ? `<img src="${post.media.url}" alt="${
-                      post.media.alt || "Post image"
-                    }">`
-                  : ""
-              }
-            </div>
-          </a>
-        `
-          )
-          .join("")
-      : "No posts found.";
+
+    if (postsContainer) {
+      // Først fjerner vi eksisterende innhold for å unngå duplisering
+      postsContainer.innerHTML = "";
+
+      if (posts.length) {
+        posts.forEach((post) => {
+          const postLink = document.createElement("a");
+          postLink.href = `../html/singlepost.html?id=${post.id}`;
+          postLink.classList.add("post-link");
+
+          const postDiv = document.createElement("div");
+          postDiv.classList.add("post");
+
+          const postTitle = document.createElement("h3");
+          postTitle.textContent = post.title || "No title available";
+
+          const postBody = document.createElement("p");
+          postBody.textContent = post.body || "No body available";
+
+          const postImage = document.createElement("img");
+          if (post.media?.url) {
+            postImage.src = post.media.url;
+            postImage.alt = post.media.alt || "Post image";
+            postDiv.appendChild(postImage);
+          }
+
+          postDiv.appendChild(postTitle);
+          postDiv.appendChild(postBody);
+          postLink.appendChild(postDiv);
+
+          postsContainer.appendChild(postLink);
+        });
+      } else {
+        postsContainer.textContent = "No posts found.";
+      }
+    }
 
     let isFollowing = await checkFollowStatus(name);
     followButton.textContent = isFollowing ? "Unfollow" : "Follow";
