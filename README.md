@@ -19,9 +19,9 @@ The code is structured and formatted according to best practices, with regular c
 
 # Bulit with
 
-- HTML
-- CSS
-- Javascript
+- JavaScript (ES6+): For dynamic and interactive functionality
+- HTML & CSS: Basic UI structure and styling
+- Noroff API: For authentication and social media features
 
 ## **Instructions to Run the Project**  
 
@@ -55,3 +55,8 @@ npm start  # If a start script is defined
 
 The project should now be accessible in your browser at http://localhost:5500/ (or another port depending on your setup).
 
+# Deployed 
+
+The project is deployed on Netlify. You can access the live version here:
+
+https://js2-marieng.netlify.app/ 
