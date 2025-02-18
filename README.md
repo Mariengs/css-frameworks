@@ -30,6 +30,7 @@ git clone https://github.com/NoroffFEU/js2-course-assignment-Mariengs.git
 ```
 
 3. Install Dependencies
+
 If the project includes dependencies, install them using:
 ```sh
 npm install
