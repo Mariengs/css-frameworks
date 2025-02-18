@@ -1,4 +1,4 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/xVM10Eiy)
+
 
 ## Javascript 2 
 
@@ -16,13 +16,19 @@ The code is structured and formatted according to best practices, with regular c
 
 ---
 
+
+# Bulit with
+
+- HTML
+- CSS
+- Javascript
+
 ## **Instructions to Run the Project**  
 
 ### **1. Clone the Repository**  
 Open a terminal and run the following commands:  
 ```sh
-git clone <repository-url>
-cd <repository-folder>
+git clone https://github.com/NoroffFEU/js2-course-assignment-Mariengs.git
 ```
 
 3. Install Dependencies
@@ -34,6 +40,7 @@ npm install
 3. Run a Local Development Server
 
 If using VS Code, you can install the Live Server extension and open index.html with Live Server.
+
 Alternatively, if using a local server:
 ```sh
 npx live-server
