@@ -7,16 +7,16 @@ const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get("id");
 
 /**
- * Fetches a post from the API by its ID and populates the edit form.
+ * Henter et innlegg fra API-et basert på ID og fyller ut redigeringsskjemaet.
  *
- * @param {string} id - The ID of the post to edit.
+ * @param {string} id - ID-en til innlegget som skal redigeres.
  */
 async function getPostForEdit(id) {
   try {
     const token = getAccessToken();
 
     if (!token) {
-      throw new Error("No token found. Are you logged in?");
+      throw new Error("Ingen token funnet. Er du logget inn?");
     }
 
     const headers = {
@@ -30,57 +30,68 @@ async function getPostForEdit(id) {
       headers,
     });
 
-    const data = await response.json();
-
     if (!response.ok) {
-      throw new Error(`Could not fetch post. Status: ${response.status}`);
+      throw new Error(`Kunne ikke hente innlegget. Status: ${response.status}`);
     }
 
-    // Populate the form with existing post data
+    const data = await response.json();
+
+    // Fyll ut skjemaet med eksisterende innleggsdata
     populateEditForm(data);
   } catch (error) {
-    console.error("Error fetching post:", error.message);
+    console.error("Feil ved henting av innlegg:", error.message);
   }
 }
 
 /**
- * Populates the edit form with the current post data.
+ * Fyller ut redigeringsskjemaet med gjeldende innleggsdata, inkludert tags.
  *
- * @param {Object} postData - The post data returned from the API.
+ * @param {Object} postData - Innleggsdata fra API-et.
  */
 function populateEditForm(postData) {
   const post = postData.data;
 
-  // Populate form fields
+  // Fyll inn skjemaets felter
   document.getElementById("title").value = post.title || "";
   document.getElementById("body").value = post.body || "";
   document.getElementById("image").value = post.media?.url || "";
+
+  // Fyll inn eksisterende tags i input-feltet
+  const tagsInput = document.getElementById("tagsInput");
+  if (tagsInput) {
+    tagsInput.value = post.tags ? post.tags.join(", ") : "";
+  }
 }
 
 /**
- * Handles form submission and sends the updated post data to the API.
+ * Håndterer innsending av skjemaet og sender oppdaterte data til API-et.
  *
- * @param {Event} event - The form submission event.
+ * @param {Event} event - Skjemainnsendingshendelsen.
  */
 async function handleEditFormSubmit(event) {
-  event.preventDefault(); // Prevent default form submission behavior
+  event.preventDefault(); // Hindrer standard innsending av skjemaet
 
-  const id = urlParams.get("id"); // Get the post ID from the URL
+  const id = urlParams.get("id"); // Hent innleggets ID fra URL-en
 
-  // Get updated data from the form
+  // Hent oppdaterte data fra skjemaet
   const updatedPost = {
     title: document.getElementById("title").value,
     body: document.getElementById("body").value,
     media: {
       url: document.getElementById("image").value,
     },
+    tags: document
+      .getElementById("tagsInput")
+      .value.split(",")
+      .map((tag) => tag.trim()) // Fjerner mellomrom rundt tags
+      .filter((tag) => tag !== ""), // Fjerner tomme tags
   };
 
   try {
     const token = getAccessToken();
 
     if (!token) {
-      throw new Error("No token found. Are you logged in?");
+      throw new Error("Ingen token funnet. Er du logget inn?");
     }
 
     const headers = {
@@ -90,43 +101,46 @@ async function handleEditFormSubmit(event) {
     };
 
     const response = await fetch(`${BASE_URL}social/posts/${id}`, {
-      method: "PUT", // PUT for updating
+      method: "PUT", // PUT brukes for oppdatering
       headers,
       body: JSON.stringify(updatedPost),
     });
 
-    const data = await response.json();
-
     if (!response.ok) {
-      throw new Error(`Could not update post. Status: ${response.status}`);
+      throw new Error(
+        `Kunne ikke oppdatere innlegget. Status: ${response.status}`
+      );
     }
 
-    alert("Post updated successfully!");
-    window.location.href = `/html/singlepost.html?id=${id}`; // Redirect back to the post view page
+    alert("Innlegget ble oppdatert!");
+    window.location.href = `../html/singlepost.html?id=${id}`; // Omadresserer til innleggets visningsside
   } catch (error) {
-    console.error("Error updating post:", error.message);
+    console.error("Feil ved oppdatering av innlegg:", error.message);
   }
 }
 
-// Add event listener for form submission
+// Legg til event listener for skjemainnsending
 const editForm = document.getElementById("editForm");
 if (editForm) {
   editForm.addEventListener("submit", handleEditFormSubmit);
 }
 
-// Fetch the post data when the page loads for editing
+// Hent innleggsdata ved lasting av siden for redigering
 getPostForEdit(id);
 
 const deleteButton = document.getElementById("deleteButton");
 if (deleteButton) {
   deleteButton.addEventListener("click", () => {
-    const confirmDelete = confirm("Are you sure you want to delete this post?");
+    const confirmDelete = confirm(
+      "Er du sikker på at du vil slette dette innlegget?"
+    );
 
     if (confirmDelete) {
-      deletePost(id); // Kaller deletePost-funksjonen med ID-en til innlegget
+      deletePost(id); // Kaller deletePost-funksjonen med innleggets ID
     }
   });
 }
+
 document.addEventListener("DOMContentLoaded", () => {
   const logoutButton = document.getElementById("logoutButton");
 
@@ -135,7 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("editingUser");
       localStorage.removeItem("user"); // Fjerner brukerdata
-      window.location.href = "../account/login.html"; // Sender til login
+      window.location.href = "../account/login.html"; // Sender til innloggingssiden
     });
   }
 });
