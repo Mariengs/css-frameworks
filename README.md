@@ -1,6 +1,6 @@
-
-
 ## Javascript 2 
+
+<img src="https://github.com/NoroffFEU/js2-course-assignment-Mariengs/blob/main/Skjermbilde%202025-02-18%20kl.%2013.36.07.png?raw=true" alt="Beskrivelse av bildet" width="300" />
 
 ## **Project Description**  
 This project is a front-end application for a social media platform built using JavaScript, HTML, and CSS. It allows users to:  
