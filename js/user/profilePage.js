@@ -5,29 +5,25 @@ document.addEventListener("DOMContentLoaded", async () => {
   const profileContainer = document.querySelector(".profile");
   const postsContainer = document.getElementById("posts");
 
-  // Hent token fra localStorage (fra innlogging)
   const token = localStorage.getItem("accessToken");
 
-  // Hvis token ikke finnes, omdiriger til login-siden
   if (!token) {
     console.error("Token ikke funnet, omdirigerer til login");
-    window.location.href = "login.html"; // Send brukeren til login-siden hvis token ikke finnes
+    window.location.href = "login.html";
     return;
   }
 
-  // Hent brukerens data fra localStorage
   const userData = JSON.parse(localStorage.getItem("user"));
 
   if (!userData || !userData.username) {
     console.error("Brukerdata er ikke tilgjengelig eller mangler username");
-    window.location.href = "login.html"; // Send brukeren til login-siden hvis dataene ikke finnes
+    window.location.href = "login.html";
     return;
   }
 
-  const name = userData.username; // Bruker navnet fra localStorage
+  const name = userData.username;
 
   try {
-    // Kall API for å hente brukerdata
     const response = await fetch(`${BASE_URL}social/profiles/${name}`, {
       method: "GET",
       headers: {
@@ -43,16 +39,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const profileData = await response.json();
 
-    // Tøm container og bygg profilen dynamisk
     profileContainer.innerHTML = "";
 
     // Profilbilde
     const img = document.createElement("img");
-    img.src = profileData.data.avatar?.url || "https://via.placeholder.com/150"; // Fallback til plassholderbilde
-    img.alt = profileData.data.avatar?.alt || "Profile image"; // Fallback for alt
+    img.src = profileData.data.avatar?.url || "https://via.placeholder.com/150";
+    img.alt = profileData.data.avatar?.alt || "Profile image";
     img.id = "profile-image";
 
-    // Profilbanner
+    // Banner
     const banner = document.createElement("img");
     banner.src =
       profileData.data.banner?.url || "https://via.placeholder.com/1500x500"; // Fallback banner
@@ -73,32 +68,28 @@ document.addEventListener("DOMContentLoaded", async () => {
       profileData.data.email || "No email provided"
     }`;
 
-    // Rediger profil-knapp
+    // Edit profile button
     const editProfileButton = document.createElement("button");
     editProfileButton.innerText = "Edit Profile";
     editProfileButton.addEventListener("click", () => {
-      localStorage.setItem("editingUser", JSON.stringify(profileData)); // Lagre data midlertidig
-      window.location.href = "editProfile.html"; // Endre URL-en her hvis nødvendig
+      localStorage.setItem("editingUser", JSON.stringify(profileData));
+      window.location.href = "editProfile.html";
     });
 
-    // Hent logoutButton fra HTML og legg til event listener
     const logoutButton = document.getElementById("logoutButton");
 
     if (logoutButton) {
       logoutButton.addEventListener("click", () => {
         console.log("Logging out...");
 
-        // Fjern token og brukerdata ved utlogging
         localStorage.removeItem("accessToken");
         localStorage.removeItem("editingUser");
-        localStorage.removeItem("user"); // Sørg for å fjerne brukerdata også
+        localStorage.removeItem("user");
 
-        // Send til login-siden etter utlogging
         window.location.href = "login.html";
       });
     }
 
-    // Legg til elementer i DOM
     profileContainer.appendChild(banner);
     profileContainer.appendChild(img);
     profileContainer.appendChild(nameElement);
@@ -106,7 +97,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     profileContainer.appendChild(emailElement);
     profileContainer.appendChild(editProfileButton);
 
-    // Hent brukerens innlegg
     const postsResponse = await fetch(
       `${BASE_URL}social/profiles/${name}/posts`,
       {
@@ -125,7 +115,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const postsData = await postsResponse.json();
 
-    // Bygg innleggene dynamisk og legg til i HTML
     postsData.data.forEach((post) => {
       const postElement = document.createElement("div");
       postElement.classList.add("post");

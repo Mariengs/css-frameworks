@@ -37,7 +37,7 @@ export async function createPost(event) {
   const postData = {
     title,
     body,
-    tags: tags, // Tags added to the post data
+    tags: tags,
     media: {
       url: image,
       alt: "Post image",
@@ -96,12 +96,11 @@ document.addEventListener("DOMContentLoaded", () => {
     console.error("Form not found! Check that the ID is correct.");
   }
 
-  // Legger til logout-funksjonalitet
   if (logoutButton) {
     logoutButton.addEventListener("click", () => {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("user");
-      window.location.href = "/account/login.html"; // Omdirigerer til login
+      window.location.href = "/account/login.html";
     });
   } else {
     console.error("Logout button not found! Check that the ID is correct.");

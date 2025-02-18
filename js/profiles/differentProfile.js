@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       ? `${BASE_URL}social/profiles/${name}/unfollow`
       : `${BASE_URL}social/profiles/${name}/follow`;
 
-    const method = isFollowing ? "PUT" : "PUT"; // Begge forespørslene er PUT, men peker til ulike endepunkter
+    const method = isFollowing ? "PUT" : "PUT";
 
     try {
       const response = await fetch(url, {
@@ -103,16 +103,16 @@ document.addEventListener("DOMContentLoaded", async () => {
           data.errors[0]?.message === "You are already following this profile"
         ) {
           console.warn("Already following this profile. Updating UI.");
-          return true; // Sett status til "following" uten å gjøre API-kall
+          return true;
         }
         console.error("Error toggling follow status:", data);
-        return isFollowing; // Beholder gammel status hvis feilet
+        return isFollowing;
       }
 
       return !isFollowing;
     } catch (error) {
       console.error("Request failed:", error);
-      return isFollowing; // Beholder gammel status ved feil
+      return isFollowing;
     }
   }
 
@@ -138,7 +138,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const postsContainer = document.getElementById("posts-container");
 
     if (postsContainer) {
-      // Først fjerner vi eksisterende innhold for å unngå duplisering
       postsContainer.innerHTML = "";
 
       if (posts.length) {

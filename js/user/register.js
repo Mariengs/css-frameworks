@@ -9,7 +9,7 @@ function getValues() {
 
   if (!name || !password || !email) {
     alert("All fields are required");
-    return null; // Viktig for å unngå videre behandling
+    return null;
   }
 
   return { name, password, email, bio, avatarUrl };
@@ -20,9 +20,9 @@ function createRequestBody({ name, email, password, bio, avatarUrl }) {
     name,
     email,
     password,
-    bio: bio || "Default bio", // Standardverdi hvis bio ikke er oppgitt
+    bio: bio || "Default bio",
     avatar: {
-      url: avatarUrl || "placeholder.png", // Standardverdi hvis avatar ikke er oppgitt
+      url: avatarUrl || "placeholder.png",
       alt: "avatar.png",
     },
   };

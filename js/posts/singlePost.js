@@ -1,4 +1,4 @@
-import { BASE_URL } from "../api/api.js"; // Import the API key
+import { BASE_URL } from "../api/api.js";
 import { getAccessToken } from "../api/auth.js";
 import { deletePost } from "./deletePost.js";
 import { apiKey } from "../api/apiKey.js";
@@ -26,7 +26,6 @@ async function getPost(id) {
       "X-Noroff-API-Key": apiKey,
     };
 
-    // Legg til _author flagget for å hente forfatteren
     const response = await fetch(`${BASE_URL}social/posts/${id}?_author=true`, {
       method: "GET",
       headers,
@@ -53,7 +52,6 @@ async function getPost(id) {
 function displayPost(postData) {
   const post = postData.data; // Get the post data
 
-  // Finn HTML-elementer
   const titleElement = document.getElementById("title");
   const authorElement = document.getElementById("author");
   const bodyElement = document.getElementById("body");
@@ -65,33 +63,28 @@ function displayPost(postData) {
     return;
   }
 
-  // Sett verdiene for elementene
   titleElement.textContent = post.title;
-  authorElement.textContent = `By: ${post.author?.name || "Unknown"}`; // Håndter hvis forfatter er ukjent
+  authorElement.textContent = `By: ${post.author?.name || "Unknown"}`;
   bodyElement.textContent = post.body;
   updatedElement.textContent = `Last updated: ${new Date(
     post.updated
   ).toLocaleString()}`;
 
-  // Håndter bilde (hvis tilgjengelig)
   if (post.media && post.media.url) {
     imageElement.src = post.media.url;
     imageElement.alt = post.media.alt || "Post image";
   } else {
-    imageElement.style.display = "none"; // Skjul bilde hvis det ikke finnes
+    imageElement.style.display = "none";
   }
 
-  // Finn knappene for redigering og sletting
   const editButton = document.getElementById("editButton");
   const deleteButton = document.getElementById("deleteButton");
 
   if (editButton && deleteButton) {
-    // Redirect to edit page
     editButton.addEventListener("click", () => {
       window.location.href = `/html/editPost.html?id=${id}`;
     });
 
-    // Handle delete button click
     deleteButton.addEventListener("click", () => {
       const confirmDelete = confirm(
         "Are you sure you want to delete this post?"
@@ -99,29 +92,23 @@ function displayPost(postData) {
 
       if (confirmDelete) {
         alert("Post deleted successfully!");
-        deletePost(id); // Pass the ID to the deletePost function
+        deletePost(id);
       }
     });
   } else {
     console.error("Delete button or Edit button not found.");
   }
 
-  // Feilsøking: Skriv ut currentUser og post.author
   const currentUser = JSON.parse(localStorage.getItem("user"));
-  console.log("Current user from localStorage:", currentUser);
-  console.log("Post author from API:", post.author);
 
-  // Kontrollere om brukeren er eieren av innlegget
   if (
     currentUser &&
     post.author?.name &&
     currentUser.username === post.author.name
   ) {
-    // Hvis brukeren er eieren, vis "Edit" og "Delete" knappene
-    editButton.style.display = "inline-block"; // Vis edit-knapp
-    deleteButton.style.display = "inline-block"; // Vis delete-knapp
+    editButton.style.display = "inline-block";
+    deleteButton.style.display = "inline-block";
   } else {
-    // Hvis ikke, skjul knappene
     editButton.style.display = "none";
     deleteButton.style.display = "none";
   }

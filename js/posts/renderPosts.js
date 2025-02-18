@@ -13,7 +13,6 @@ import { BASE_URL } from "../api/api.js";
  * @returns {Promise<void>} Resolves when the posts are rendered, or logs an error if no posts are found.
  */
 export async function renderPosts() {
-  // Hent alle poster fra API-et
   const posts = await getAllPosts();
 
   if (!posts || posts.length === 0) {
@@ -21,7 +20,6 @@ export async function renderPosts() {
     return;
   }
 
-  // Velg containeren hvor postene skal vises
   const postsContainer = document.getElementById("posts-container");
   postsContainer.innerHTML = ""; // Rens eventuelle tidligere data før visning
 
@@ -30,24 +28,19 @@ export async function renderPosts() {
    * Each post is wrapped in an `<a>` element with a link to a single post view page.
    */
   posts.forEach((post) => {
-    // Opprett lenke-elementet for hele posten
     const postLink = document.createElement("a");
-    postLink.href = `../html/singlepost.html?id=${post.id}`; // URL med innleggets ID
-    postLink.classList.add("post-link"); // CSS-klasse for styling
+    postLink.href = `../html/singlepost.html?id=${post.id}`;
+    postLink.classList.add("post-link");
 
-    // Opprett div-element for posten
     const postElement = document.createElement("div");
-    postElement.classList.add("post"); // CSS-klasse for styling
+    postElement.classList.add("post");
 
-    // Opprett tittel-element
     const postTitle = document.createElement("h3");
     postTitle.textContent = post.title;
 
-    // Opprett innhold-element
     const postBody = document.createElement("p");
-    postBody.textContent = post.body; // Viser innholdet i innlegget
+    postBody.textContent = post.body;
 
-    // Legg til bilde hvis det finnes
     if (post.media) {
       const postImage = document.createElement("img");
       postImage.src = post.media.url;
@@ -55,40 +48,33 @@ export async function renderPosts() {
       postElement.appendChild(postImage);
     }
 
-    // Legg til tittel og innhold i postElement
     postElement.appendChild(postTitle);
     postElement.appendChild(postBody);
 
-    // Legg til tittel, innhold og bilde i lenken
     postLink.appendChild(postElement);
 
-    // Legg postLink til i containeren
     postsContainer.appendChild(postLink);
   });
 
-  // Søke funksjonalitet
   const searchInput = document.getElementById("searchInput");
   const searchButton = document.getElementById("searchButton");
 
-  // Eventlistener for søkeknappen
   searchButton.addEventListener("click", async () => {
     const query = searchInput.value.trim();
     if (query) {
-      // Utfør søket etter innlegg basert på spørringen
       const filteredPosts = await searchPosts(query);
-      renderFilteredPosts(filteredPosts); // Vis de filtrerte postene
+      renderFilteredPosts(filteredPosts);
     }
   });
 
-  // Funksjon for å søke innlegg basert på spørringen
   async function searchPosts(query) {
     const accessToken = localStorage.getItem("accessToken");
     const API_KEY = "233315a6-8ab8-4b0f-a8d5-0f4d19e5106b";
 
     const options = {
       headers: {
-        Authorization: `Bearer ${accessToken}`, // Bearer token for brukeren
-        "X-Noroff-API-Key": API_KEY, // API-nøkkelen for applikasjonen
+        Authorization: `Bearer ${accessToken}`,
+        "X-Noroff-API-Key": API_KEY,
         "Content-Type": "application/json",
       },
     };
@@ -105,18 +91,16 @@ export async function renderPosts() {
       }
 
       const data = await response.json();
-      return data.data; // Returner innleggene som svar
+      return data.data;
     } catch (error) {
       console.error("Error fetching posts:", error);
-      return []; // Returner tom array hvis ingen resultater
+      return [];
     }
   }
 
-  // Funksjon for å vise de filtrerte postene
   function renderFilteredPosts(posts) {
     const postsContainer = document.getElementById("posts-container");
-    postsContainer.innerHTML = ""; // Rens eventuelle tidligere data før visning
-
+    postsContainer.innerHTML = "";
     if (posts.length === 0) {
       postsContainer.innerHTML = "<p>Ingen innlegg funnet for søket.</p>";
       return;
@@ -124,17 +108,17 @@ export async function renderPosts() {
 
     posts.forEach((post) => {
       const postLink = document.createElement("a");
-      postLink.href = `../html/singlepost.html?id=${post.id}`; // URL med innleggets ID
-      postLink.classList.add("post-link"); // CSS-klasse for styling
+      postLink.href = `../html/singlepost.html?id=${post.id}`;
+      postLink.classList.add("post-link");
 
       const postElement = document.createElement("div");
-      postElement.classList.add("post"); // CSS-klasse for styling
+      postElement.classList.add("post");
 
       const postTitle = document.createElement("h3");
       postTitle.textContent = post.title;
 
       const postBody = document.createElement("p");
-      postBody.textContent = post.body; // Viser innholdet i innlegget
+      postBody.textContent = post.body;
 
       if (post.media) {
         const postImage = document.createElement("img");

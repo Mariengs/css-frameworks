@@ -5,7 +5,7 @@ body {
   margin: 0;
   padding: 0;
   color: #333;
-  height: 100vh; /* Ensure body takes the full viewport height */
+  height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -20,50 +20,50 @@ main {
 .post-link {
   display: block;
   text-decoration: none;
-  color: inherit; /* Beholder fargen på innlegget */
+  color: inherit;
   padding: 10px;
 }
 
 .post-link:hover {
-  background-color: #f0f0f0; /* Endre bakgrunn ved hover */
+  background-color: #f0f0f0;
   cursor: pointer;
 }
 
 .post {
   display: flex;
-  flex-direction: column; /* Bildet til høyre, teksten til venstre */
-  align-items: center; /* Justerer både bilde og tekst vertikalt */
+  flex-direction: column;
+  align-items: center;
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 16px;
   background-color: #fff;
-  max-width: 1500px; /* Juster bredde etter behov */
+  max-width: 1500px;
   width: 100%;
-  gap: 20px; /* Avstand mellom bilde og tekst */
+  gap: 20px;
 }
 
 .image {
-  width: 300px; /* Sett fast bredde for bildet */
-  height: 400px; /* Sett fast høyde for bildet */
+  width: 300px;
+  height: 400px;
   border-radius: 8px;
-  overflow: hidden; /* Skjuler eventuelle overskytende deler av bildet */
+  overflow: hidden;
 }
 
 .image img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Sørger for at bildet dekker området uten å bli deformert */
-  object-position: center; /* Sentraliserer bildet i containeren */
+  object-fit: cover;
+  object-position: center;
 }
 
 .text {
-  max-width: 50%; /* Lar teksten ta opp all tilgjengelig plass */
+  max-width: 50%;
 }
 
 .buttons {
-  margin-top: auto; /* Skyver knappene ned til bunnen */
+  margin-top: auto;
   display: flex;
-  gap: 10px; /* Avstand mellom knappene */
+  gap: 10px;
 }
 
 .edit-button,

@@ -11,8 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
     logoutButton.addEventListener("click", () => {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("editingUser");
-      localStorage.removeItem("user"); // Fjerner brukerdata
-      window.location.href = "account/login.html"; // Sender til login
+      localStorage.removeItem("user");
+      window.location.href = "account/login.html";
     });
   }
 });

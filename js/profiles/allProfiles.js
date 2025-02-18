@@ -3,7 +3,6 @@ import { apiKey } from "../api/apiKey.js";
 
 const accessToken = localStorage.getItem("accessToken");
 
-// Funksjon for å hente profiler basert på søk
 async function searchProfiles(query) {
   try {
     if (!accessToken) {
@@ -29,14 +28,13 @@ async function searchProfiles(query) {
     }
 
     const data = await response.json();
-    return data.data; // Returner profiler fra API-responsen
+    return data.data;
   } catch (error) {
     console.error("Feil ved søk av profiler:", error);
-    return []; // Returnerer en tom array hvis noe går galt
+    return [];
   }
 }
 
-// Funksjon for å hente alle profiler
 async function getAllProfiles() {
   try {
     if (!accessToken) {
@@ -60,24 +58,22 @@ async function getAllProfiles() {
 
     const data = await response.json();
 
-    return data.data; // Returner profiler fra API-responsen
+    return data.data;
   } catch (error) {
     console.error("Feil ved henting av profiler:", error);
-    return []; // Returnerer en tom array hvis noe går galt
+    return [];
   }
 }
 
-// Funksjon for å rendre profiler
 async function renderProfiles(profiles) {
   const profilesContainer = document.getElementById("profiles-container");
-  profilesContainer.innerHTML = ""; // Rens eventuelle tidligere data før visning
+  profilesContainer.innerHTML = "";
 
   profiles.forEach((profile) => {
     const profileLink = document.createElement("a");
     profileLink.href = `differentProfile.html?name=${profile.name}`;
     profileLink.classList.add("profile-link");
 
-    // Opprett container for hver profil
     const profileElement = document.createElement("div");
     profileElement.classList.add("profile");
 
@@ -98,34 +94,27 @@ async function renderProfiles(profiles) {
     profileStats.textContent = `Innlegg: ${profile._count.posts}, Følgere: ${profile._count.followers}, Følger: ${profile._count.following}`;
     profileElement.appendChild(profileStats);
 
-    // Legg til Follow/Unfollow knapp
     const followButton = document.createElement("button");
     followButton.classList.add("follow-button");
 
-    // Sjekk om brukeren allerede følger denne profilen
     if (profile.following) {
       followButton.innerText = "Unfollow";
     } else {
       followButton.innerText = "Follow";
     }
 
-    // Legg eventlistener for Follow/Unfollow
     followButton.addEventListener("click", async (event) => {
-      // Stopper lenkeklikking og hindrer omdirigering
       event.preventDefault();
 
-      // Hvis profile.name er ugyldig, ikke fortsett med toggleFollow
       if (!profile.name) {
         console.error("Ugyldig profilnavn:", profile);
         return;
       }
 
-      // Hvis vi prøver å unfollow, sørg for at vi har riktig profilnavn
       const action = profile.following ? "unfollow" : "follow";
 
-      await toggleFollow(profile.name, action); // Passer riktig navn her
+      await toggleFollow(profile.name, action);
 
-      // Oppdater teksten på knappen etter handlingen
       followButton.innerText = action === "follow" ? "Unfollow" : "Follow";
     });
 
@@ -138,17 +127,14 @@ async function renderProfiles(profiles) {
 async function toggleFollow(profileName, action) {
   const accessToken = localStorage.getItem("accessToken");
 
-  // Hvis profileName er ugyldig, returner tidlig
   if (!profileName) {
-    console.error("Profilnavn er null eller ugyldig.");
+    console.error("Profilename is undefined.");
     return;
   }
 
   try {
-    // Bygg URL for follow eller unfollow
-    let url = `${BASE_URL}social/profiles/${profileName}/follow`; // Standard for follow
+    let url = `${BASE_URL}social/profiles/${profileName}/follow`;
     if (action === "unfollow") {
-      // Sjekk om du allerede følger profilen før du prøver å unfollowe
       const followingResponse = await fetch(
         `${BASE_URL}social/profiles/me/following`,
         {
@@ -168,51 +154,39 @@ async function toggleFollow(profileName, action) {
 
       if (!isFollowing) {
         console.error("You are not following this profile.");
-        return; // Hvis du ikke følger, gjør ingen endring
+        return;
       }
 
-      url = `${BASE_URL}social/profiles/${profileName}/unfollow`; // URL for unfollow
+      url = `${BASE_URL}social/profiles/${profileName}/unfollow`;
     }
 
-    console.log("Request URL:", url); // Logg URL-en for debugging
-
-    // Send forespørselen
     const response = await fetch(url, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${accessToken}`,
         "X-Noroff-API-Key": apiKey,
-        "Content-Type": "application/json", // Ingen body trengs, men Content-Type er fortsatt viktig
+        "Content-Type": "application/json",
       },
     });
 
-    // Logg responsen for å få mer informasjon ved feil
     const responseData = await response.json();
 
     if (!response.ok) {
-      // Hvis svaret ikke er ok, logg feilmeldingen
       console.error("Feil ved forespørsel:", responseData);
       throw new Error(`Feil ved ${action} profil: ${response.statusText}`);
     }
 
-    // Hvis alt går bra, logg suksess
     console.log(`${action}ed profile: ${profileName}`);
-
-    // Eventuelt logge den returnerte dataen fra serveren for debugging
-    console.log("Responsdata:", responseData);
   } catch (error) {
-    // Logg eventuelle feil
     console.error(`Feil ved å ${action} profil:`, error);
   }
 }
 
-// Kjør funksjon for å hente og vise profiler ved lastning
 document.addEventListener("DOMContentLoaded", async () => {
   const profiles = await getAllProfiles();
   renderProfiles(profiles);
 });
 
-// Legg til eventlistener for søkefunksjonen
 document.getElementById("searchButton").addEventListener("click", async () => {
   const query = document.getElementById("searchInput").value;
   if (query) {

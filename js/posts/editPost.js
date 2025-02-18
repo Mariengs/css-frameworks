@@ -36,7 +36,6 @@ async function getPostForEdit(id) {
 
     const data = await response.json();
 
-    // Fyll ut skjemaet med eksisterende innleggsdata
     populateEditForm(data);
   } catch (error) {
     console.error("Feil ved henting av innlegg:", error.message);
@@ -44,19 +43,18 @@ async function getPostForEdit(id) {
 }
 
 /**
- * Fyller ut redigeringsskjemaet med gjeldende innleggsdata, inkludert tags.
+ * Fills the edit form with the current post data, including tags.
  *
- * @param {Object} postData - Innleggsdata fra API-et.
+ * @param {Object} postData - Post data from the API.
  */
 function populateEditForm(postData) {
   const post = postData.data;
 
-  // Fyll inn skjemaets felter
+  // Fill in existing post data
   document.getElementById("title").value = post.title || "";
   document.getElementById("body").value = post.body || "";
   document.getElementById("image").value = post.media?.url || "";
 
-  // Fyll inn eksisterende tags i input-feltet
   const tagsInput = document.getElementById("tagsInput");
   if (tagsInput) {
     tagsInput.value = post.tags ? post.tags.join(", ") : "";
@@ -64,16 +62,17 @@ function populateEditForm(postData) {
 }
 
 /**
- * Håndterer innsending av skjemaet og sender oppdaterte data til API-et.
  *
- * @param {Event} event - Skjemainnsendingshendelsen.
+ *  Handles the form submission for editing a post and sends the updated data to the API.
+ *
+ * @param {Event} event - Event object representing the form submission.
  */
 async function handleEditFormSubmit(event) {
-  event.preventDefault(); // Hindrer standard innsending av skjemaet
+  event.preventDefault();
 
-  const id = urlParams.get("id"); // Hent innleggets ID fra URL-en
+  const id = urlParams.get("id");
 
-  // Hent oppdaterte data fra skjemaet
+  // Fetch updated post data
   const updatedPost = {
     title: document.getElementById("title").value,
     body: document.getElementById("body").value,
@@ -83,8 +82,8 @@ async function handleEditFormSubmit(event) {
     tags: document
       .getElementById("tagsInput")
       .value.split(",")
-      .map((tag) => tag.trim()) // Fjerner mellomrom rundt tags
-      .filter((tag) => tag !== ""), // Fjerner tomme tags
+      .map((tag) => tag.trim())
+      .filter((tag) => tag !== ""),
   };
 
   try {
@@ -101,7 +100,7 @@ async function handleEditFormSubmit(event) {
     };
 
     const response = await fetch(`${BASE_URL}social/posts/${id}`, {
-      method: "PUT", // PUT brukes for oppdatering
+      method: "PUT",
       headers,
       body: JSON.stringify(updatedPost),
     });
@@ -113,19 +112,17 @@ async function handleEditFormSubmit(event) {
     }
 
     alert("Innlegget ble oppdatert!");
-    window.location.href = `../html/singlepost.html?id=${id}`; // Omadresserer til innleggets visningsside
+    window.location.href = `../html/singlepost.html?id=${id}`;
   } catch (error) {
     console.error("Feil ved oppdatering av innlegg:", error.message);
   }
 }
 
-// Legg til event listener for skjemainnsending
 const editForm = document.getElementById("editForm");
 if (editForm) {
   editForm.addEventListener("submit", handleEditFormSubmit);
 }
 
-// Hent innleggsdata ved lasting av siden for redigering
 getPostForEdit(id);
 
 const deleteButton = document.getElementById("deleteButton");
@@ -136,7 +133,7 @@ if (deleteButton) {
     );
 
     if (confirmDelete) {
-      deletePost(id); // Kaller deletePost-funksjonen med innleggets ID
+      deletePost(id);
     }
   });
 }
@@ -148,8 +145,8 @@ document.addEventListener("DOMContentLoaded", () => {
     logoutButton.addEventListener("click", () => {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("editingUser");
-      localStorage.removeItem("user"); // Fjerner brukerdata
-      window.location.href = "../account/login.html"; // Sender til innloggingssiden
+      localStorage.removeItem("user");
+      window.location.href = "../account/login.html";
     });
   }
 });
