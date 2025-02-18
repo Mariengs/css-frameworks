@@ -10,7 +10,7 @@ This project is a front-end application for a social media platform built using 
 - Search for posts  
 - View user profiles  
 
-The application integrates Noroff’s API for authentication and social content. It follows modular ES6 practices, with at least three functions documented using JSDoc. A basic UI is implemented, and the project is deployed on GitHub Pages/Netlify/Vercel.  
+The application integrates Noroff’s API for authentication and social content. It follows modular ES6 practices, with at least three functions documented using JSDoc. A basic UI is implemented, and the project is deployed on Netlify: https://js2-marieng.netlify.app/ 
 
 The code is structured and formatted according to best practices, with regular commits and the use of GitHub Issues for bug tracking.  
 
@@ -55,8 +55,3 @@ npm start  # If a start script is defined
 
 The project should now be accessible in your browser at http://localhost:5500/ (or another port depending on your setup).
 
-# Deployed 
-
-The project is deployed on Netlify. You can access the live version here:
-
-https://js2-marieng.netlify.app/ 
