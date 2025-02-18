@@ -1,12 +1,14 @@
 @import url(../css/header.css);
+
 body {
   font-family: "Arial", sans-serif;
   background-color: #f4f7fc;
   margin: 0;
   padding: 0;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column; /* Legg til denne linjen for å stable elementene vertikalt */
+  justify-content: flex-start; /* Plasserer innholdet øverst på siden */
+  align-items: center; /* Sentrerer horisontalt */
   height: 100vh;
 }
 
@@ -17,6 +19,7 @@ body {
   width: 100%;
   max-width: 500px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 50px; /* Sørger for litt plass mellom headeren og skjemaet */
 }
 
 h2 {
