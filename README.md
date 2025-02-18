@@ -5,14 +5,12 @@
 ## **Project Description**  
 This project is a front-end application for a social media platform built using JavaScript, HTML, and CSS. It allows users to:  
 - Register and log in  
-- Create, read, update, and delete posts (CRUD operations)  
+- Create, read, update, and delete posts
 - Follow and unfollow users  
 - Search for posts  
-- View user profiles  
+- View user profiles and search for profiles 
 
-The application integrates Noroff’s API for authentication and social content. It follows modular ES6 practices, with at least three functions documented using JSDoc. A basic UI is implemented, and the project is deployed on Netlify: https://js2-marieng.netlify.app/ 
-
-The code is structured and formatted according to best practices, with regular commits and the use of GitHub Issues for bug tracking.  
+The application integrates Noroff’s API for authentication and social content. It follows modular ES6 practices, with at least three functions documented using JSDoc. A basic UI is implemented, and the project is deployed on Netlify: https://js2-marieng.netlify.app/
 
 ---
 
