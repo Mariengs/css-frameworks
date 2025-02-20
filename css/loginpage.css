@@ -1,4 +1,5 @@
 @import url(../css/header.css);
+@import url(../css/footer.css);
 body {
   font-family: "Arial", sans-serif;
   background-color: #f8f8f8;
@@ -11,13 +12,12 @@ body {
 }
 
 main {
+  flex: 1; /* Skyver footeren til bunnen når innholdet er lite */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 14px;
-  background-color: #f7f7f8;
-  max-width: 100%;
 }
 
 .loginform,
@@ -45,4 +45,21 @@ main {
   color: #ffffff;
   border: none;
   border-radius: 5px;
+}
+
+.register-link {
+  display: inline-block;
+  font-weight: bold;
+  color: #424953;
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  transition: all 0.3s ease-in-out;
+}
+
+.register-link:hover {
+  background-color: #424953;
+  color: white;
+  text-decoration: none;
 }
