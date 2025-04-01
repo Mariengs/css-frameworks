@@ -72,36 +72,75 @@ async function renderProfiles(profiles) {
   profiles.forEach((profile) => {
     const profileLink = document.createElement("a");
     profileLink.href = `differentProfile.html?name=${profile.name}`;
-    profileLink.classList.add("profile-link");
+    profileLink.classList.add(
+      "block",
+      "p-4",
+      "border",
+      "rounded-lg",
+      "bg-white",
+      "shadow-lg",
+      "hover:shadow-xl",
+      "transition-shadow",
+      "duration-300"
+    );
 
-    const profileElement = document.createElement("div");
-    profileElement.classList.add("profile");
+    // Profile Card Wrapper
+    const profileCard = document.createElement("div");
+    profileCard.classList.add(
+      "profile-card",
+      "p-4",
+      "flex",
+      "flex-col",
+      "items-center",
+      "space-y-4"
+    );
 
+    // Avatar image
     const avatarImage = document.createElement("img");
-    avatarImage.src = profile.avatar?.url || "default-avatar.jpg";
+    avatarImage.src = profile.avatar?.url || "default-avatar.jpg"; // Fallback til standard avatar
     avatarImage.alt = profile.avatar?.alt || "Avatar";
-    profileElement.appendChild(avatarImage);
+    avatarImage.classList.add(
+      "w-24",
+      "h-24",
+      "rounded-full",
+      "object-cover",
+      "border-2",
+      "border-gray-300"
+    );
 
+    profileCard.appendChild(avatarImage);
+
+    // Profile Name
     const profileName = document.createElement("h3");
+    profileName.classList.add("text-lg", "font-semibold", "text-center");
     profileName.textContent = profile.name || "Ukjent Navn";
-    profileElement.appendChild(profileName);
+    profileCard.appendChild(profileName);
 
+    // Profile Bio
     const profileBio = document.createElement("p");
+    profileBio.classList.add("text-sm", "text-gray-600", "text-center");
     profileBio.textContent = profile.bio || "No bio available";
-    profileElement.appendChild(profileBio);
+    profileCard.appendChild(profileBio);
 
+    // Profile Stats
     const profileStats = document.createElement("p");
+    profileStats.classList.add("text-sm", "text-gray-600", "text-center");
     profileStats.textContent = `Innlegg: ${profile._count.posts}, Følgere: ${profile._count.followers}, Følger: ${profile._count.following}`;
-    profileElement.appendChild(profileStats);
+    profileCard.appendChild(profileStats);
 
+    // Follow Button
     const followButton = document.createElement("button");
-    followButton.classList.add("follow-button");
-
-    if (profile.following) {
-      followButton.innerText = "Unfollow";
-    } else {
-      followButton.innerText = "Follow";
-    }
+    followButton.classList.add(
+      "bg-blue-500",
+      "text-white",
+      "py-2",
+      "px-4",
+      "rounded-lg",
+      "hover:bg-blue-600",
+      "transition",
+      "duration-200"
+    );
+    followButton.innerText = profile.following ? "Unfollow" : "Follow";
 
     followButton.addEventListener("click", async (event) => {
       event.preventDefault();
@@ -112,14 +151,13 @@ async function renderProfiles(profiles) {
       }
 
       const action = profile.following ? "unfollow" : "follow";
-
       await toggleFollow(profile.name, action);
 
       followButton.innerText = action === "follow" ? "Unfollow" : "Follow";
     });
 
-    profileElement.appendChild(followButton);
-    profileLink.appendChild(profileElement);
+    profileCard.appendChild(followButton);
+    profileLink.appendChild(profileCard);
     profilesContainer.appendChild(profileLink);
   });
 }

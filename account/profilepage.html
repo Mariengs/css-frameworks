@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="module" src="../js/user/profilePage.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/style.css" />
     <title>Profile Page</title>
   </head>
   <body class="bg-gray-100 min-h-screen">
@@ -64,19 +64,16 @@
       <h1 class="text-3xl font-semibold text-center mb-6">Profile Page</h1>
 
       <!-- Profile Section -->
-      <div class="bg-white shadow-md rounded-lg p-6">
-        <div class="relative">
-          <img
-            id="banner-image"
-            class="w-full h-48 object-cover rounded-lg"
-            alt="Banner Image"
-          />
-        </div>
 
-        <div class="profile-info text-center mt-4">
-          <p id="name" class="text-xl font-bold"></p>
-          <p id="bio" class="text-gray-600 mt-2"></p>
-        </div>
+      <img
+        id="banner-image"
+        class="w-full h-48 object-cover rounded-lg border border-gray-300 shadow"
+        alt="Banner Image"
+      />
+
+      <div class="profile-info text-center mt-4">
+        <p id="name" class="text-xl font-bold"></p>
+        <p id="bio" class="text-gray-600 mt-2"></p>
       </div>
 
       <!-- Profile Container -->

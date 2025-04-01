@@ -54,16 +54,25 @@ document.addEventListener("DOMContentLoaded", async () => {
     img.src = profileData.data.avatar?.url || "https://via.placeholder.com/150";
     img.alt = profileData.data.avatar?.alt || "Profile image";
     img.id = "profile-image";
+    img.classList.add(
+      "w-32",
+      "h-32",
+      "object-cover",
+      "rounded-full",
+      "border-4",
+      "border-white",
+      "shadow-md"
+    );
 
     // Banner
-    const banner = document.createElement("img");
+    const banner = document.getElementById("banner-image");
     banner.src =
-      profileData.data.banner?.url || "https://via.placeholder.com/1500x500"; // Fallback banner
+      profileData.data.banner?.url || "https://via.placeholder.com/1500x500";
     banner.alt = profileData.data.banner?.alt || "Banner image";
-    banner.id = "banner-image";
 
     // Navn
     const nameElement = document.createElement("h2");
+    nameElement.classList.add("text-2xl", "font-semibold", "mb-2");
     nameElement.innerText = profileData.data.name || "No name provided";
 
     // Bio
@@ -78,6 +87,20 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Edit profile button
     const editProfileButton = document.createElement("button");
+    editProfileButton.classList.add(
+      "bg-gray-800",
+      "text-white",
+      "py-1",
+      "px-3",
+      "rounded-lg",
+      "hover:bg-blue-900",
+      "focus:outline-none",
+      "transition",
+      "duration-200",
+      "ease-in-out",
+      "text-sm",
+      "mt-4"
+    );
     editProfileButton.innerText = "Edit Profile";
     editProfileButton.addEventListener("click", () => {
       localStorage.setItem("editingUser", JSON.stringify(profileData));
@@ -126,11 +149,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     postsData.data.forEach((post) => {
       const postElement = document.createElement("div");
       postElement.classList.add("post");
+      postElement.classList.add(
+        "bg-white",
+        "p-4",
+        "rounded-lg",
+        "shadow-md",
+        "max-w-sm",
+        "w-full"
+      );
 
       const postTitle = document.createElement("h3");
+      postTitle.classList.add("font-semibold", "text-lg");
       postTitle.innerText = post.title;
 
       const postBody = document.createElement("p");
+      postBody.classList.add("text-gray-600");
       postBody.innerText = post.body;
 
       if (post.media && post.media.url) {

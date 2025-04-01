@@ -4,29 +4,70 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>All Profiles</title>
-    <link rel="stylesheet" href="/css/allprofiles.css" />
     <script type="module" src="/js/profiles/allProfiles.js"></script>
+    <link rel="stylesheet" href="/css/style.css" />
   </head>
-  <body>
-    <header>
-      <nav>
-        <a href="../index.html">Home</a>
-        <a href="../account/login.html">Login</a>
-        <a href="../account/register.html">Register</a>
-        <a href="../account/profilepage.html">Profile</a>
-        <a href="../html/allProfiles.html">See All Profiles</a>
-        <a href="..//html/create.html">Create post</a>
-        <button id="logoutButton">Log out</button>
+  <body class="bg-gray-100 text-gray-900">
+    <!-- Header -->
+    <header class="bg-gray-800 text-white">
+      <nav class="max-w-7xl mx-auto p-4 flex justify-between items-center">
+        <a
+          href="../index.html"
+          class="text-xl font-semibold hover:text-gray-200"
+          >Home</a
+        >
+        <a href="../account/login.html" class="hover:text-gray-200">Login</a>
+        <a href="../account/register.html" class="hover:text-gray-200"
+          >Register</a
+        >
+        <a href="../account/profilepage.html" class="hover:text-gray-200"
+          >Profile</a
+        >
+        <a href="../html/allProfiles.html" class="hover:text-gray-200"
+          >See All Profiles</a
+        >
+        <a href="../html/create.html" class="hover:text-gray-200"
+          >Create post</a
+        >
+        <button
+          id="logoutButton"
+          class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg"
+        >
+          Log out
+        </button>
       </nav>
     </header>
-    <main>
-      <input type="text" id="searchInput" placeholder="Søk etter profiler..." />
-      <button id="searchButton">Søk</button>
 
-      <h1>Profiles</h1>
-      <div id="profiles-container"></div>
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto p-6 space-y-8">
+      <div class="flex flex-col sm:flex-row items-center justify-between">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search for profiles..."
+          class="border p-2 rounded-lg"
+        />
+        <button
+          id="searchButton"
+          class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition duration-200"
+        >
+          Search
+        </button>
+      </div>
+
+      <h1 class="text-3xl font-semibold text-center">Profiles</h1>
+
+      <!-- Profiles container -->
+      <div
+        id="profiles-container"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6"
+      >
+        <!-- Dynamically generated profiles will go here -->
+      </div>
     </main>
-    <footer>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white text-center py-4">
       <p>&copy; 2025 Blog Post. All rights reserved.</p>
     </footer>
   </body>
