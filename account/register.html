@@ -4,46 +4,106 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="/js/user/register.js" type="module"></script>
-    <link rel="stylesheet" href="../css/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>Register page</title>
   </head>
-  <body>
-    <header>
-      <nav>
-        <a href="../index.html">Home</a>
-        <a href="../account/login.html">Login</a>
-        <a href="../account/register.html">Register</a>
-        <a href="../account/profilepage.html">Profile</a>
-        <a href="../html/allProfiles.html">See All Profiles</a>
-        <a href="../html/create.html">Create post</a>
-        <button id="logoutButton">Log out</button>
+  <body class="bg-gray-100 text-gray-900">
+    <header class="bg-gray-800 text-white py-4">
+      <nav
+        class="container mx-auto flex flex-col md:flex-row items-center justify-between px-4"
+      >
+        <div class="text-lg font-bold">Blog</div>
+        <button id="menu-button" class="md:hidden text-white text-xl">
+          &#9776;
+        </button>
+        <ul id="menu" class="hidden md:flex space-x-6 mt-4 md:mt-0">
+          <li><a href="../index.html" class="hover:underline">Home</a></li>
+          <li>
+            <a href="../account/login.html" class="hover:underline">Login</a>
+          </li>
+          <li>
+            <a href="../account/register.html" class="hover:underline"
+              >Register</a
+            >
+          </li>
+          <li>
+            <a href="../account/profilepage.html" class="hover:underline"
+              >Profile</a
+            >
+          </li>
+          <li>
+            <a href="../html/allProfiles.html" class="hover:underline"
+              >See All Profiles</a
+            >
+          </li>
+          <li>
+            <a href="../html/create.html" class="hover:underline"
+              >Create post</a
+            >
+          </li>
+        </ul>
       </nav>
     </header>
-    <main>
-      <section class="registerform">
-        <h1>Create Your Account</h1>
-        <form id="registerform">
-          <input type="text" id="name" placeholder="Name" required />
-          <input type="email" id="email" placeholder="Email" required />
+
+    <main class="flex justify-center items-center min-h-screen bg-gray-50">
+      <section class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h1 class="text-2xl font-semibold text-center mb-6">
+          Create Your Account
+        </h1>
+        <form id="registerform" class="space-y-4">
+          <input
+            type="text"
+            id="name"
+            placeholder="Name"
+            required
+            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <input
+            type="email"
+            id="email"
+            placeholder="Email"
+            required
+            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
           <input
             type="password"
             id="password"
             placeholder="Password"
             required
+            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <input type="text" id="bio" placeholder="Bio (optional)" />
-          <input type="text" id="avatar" placeholder="Avatar URL (optional)" />
-          <button class="registerbutton" type="submit">Register</button>
+          <input
+            type="text"
+            id="bio"
+            placeholder="Bio (optional)"
+            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <input
+            type="text"
+            id="avatar"
+            placeholder="Avatar URL (optional)"
+            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            class="w-full py-3 bg-gray-800 text-white font-semibold rounded-md hover:bg-blue-600"
+            type="submit"
+          >
+            Register
+          </button>
         </form>
 
-        <p id="loginMessage"></p>
-      </section>
-      <section>
-        <h2>Already have an account?</h2>
-        <a href="login.html" class="login-link"> LOGIN HERE</a>
+        <p id="loginMessage" class="text-center text-sm text-gray-600 mt-4"></p>
       </section>
     </main>
-    <footer>
+
+    <section class="text-center mt-8">
+      <h2 class="text-lg font-semibold">Already have an account?</h2>
+      <a href="login.html" class="text-blue-500 hover:text-blue-700"
+        >LOGIN HERE</a
+      >
+    </section>
+
+    <footer class="bg-gray-800 text-white text-center py-4 mt-8">
       <p>&copy; 2025 Blog Post. All rights reserved.</p>
     </footer>
   </body>

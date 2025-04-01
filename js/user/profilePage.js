@@ -2,8 +2,16 @@ import { BASE_URL } from "../api/api.js";
 import { apiKey } from "../api/apiKey.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
+  // Sørg for at elementene finnes før vi går videre
   const profileContainer = document.querySelector(".profile");
   const postsContainer = document.getElementById("posts");
+
+  if (!profileContainer || !postsContainer) {
+    console.error(
+      "Profile container eller posts container ikke funnet i DOM-en."
+    );
+    return;
+  }
 
   const token = localStorage.getItem("accessToken");
 
@@ -60,7 +68,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Bio
     const bioElement = document.createElement("p");
-    bioElement.innerText = profileData.data.bio || "No bio available"; // Fallback hvis bio er null
+    bioElement.innerText = profileData.data.bio || "No bio available"; // Fallback
 
     // Email
     const emailElement = document.createElement("p");

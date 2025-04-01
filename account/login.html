@@ -4,41 +4,103 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="/js/user/login.js" type="module"></script>
-    <link rel="stylesheet" href="../css/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>Account Login Page</title>
   </head>
-  <body>
-    <header>
-      <nav>
-        <a href="../index.html">Home</a>
-        <a href="../account/login.html">Login</a>
-        <a href="../account/register.html">Register</a>
-        <a href="../account/profilepage.html">Profile</a>
-        <a href="../html/allProfiles.html">See All Profiles</a>
-        <a href="../html/create.html">Create post</a>
+  <body class="bg-gray-100 min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-gray-800 text-white py-4">
+      <nav
+        class="container mx-auto flex flex-col md:flex-row items-center justify-between px-4"
+      >
+        <div class="text-lg font-bold">Blog</div>
+        <button id="menu-button" class="md:hidden text-white text-xl">
+          &#9776;
+        </button>
+        <ul id="menu" class="hidden md:flex space-x-6 mt-4 md:mt-0">
+          <li><a href="../index.html" class="hover:underline">Home</a></li>
+          <li>
+            <a href="../account/login.html" class="hover:underline">Login</a>
+          </li>
+          <li>
+            <a href="../account/register.html" class="hover:underline"
+              >Register</a
+            >
+          </li>
+          <li>
+            <a href="../account/profilepage.html" class="hover:underline"
+              >Profile</a
+            >
+          </li>
+          <li>
+            <a href="../html/allProfiles.html" class="hover:underline"
+              >See All Profiles</a
+            >
+          </li>
+          <li>
+            <a href="../html/create.html" class="hover:underline"
+              >Create post</a
+            >
+          </li>
+        </ul>
       </nav>
     </header>
-    <main>
-      <section class="login">
-        <h1>Login to your account</h1>
-        <form id="loginForm" class="loginform">
-          <label for="email">E-mail:</label>
-          <input type="text" id="email" required /><br /><br />
 
-          <label for="password">Password:</label>
-          <input type="password" id="password" required /><br /><br />
-
-          <button class="loginbutton" type="submit">LOGIN</button>
+    <!-- Main Content -->
+    <main class="flex flex-col items-center justify-center flex-grow px-4">
+      <section class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <h1 class="text-2xl font-bold text-center mb-4">
+          Login to your account
+        </h1>
+        <form id="loginForm" class="space-y-4">
+          <div>
+            <label for="email" class="block text-gray-700">E-mail:</label>
+            <input
+              type="email"
+              id="email"
+              required
+              class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <label for="password" class="block text-gray-700">Password:</label>
+            <input
+              type="password"
+              id="password"
+              required
+              minlength="8"
+              class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <button
+            class="w-full bg-gray-800 text-white py-3 rounded hover:bg-blue-700 transition"
+            type="submit"
+          >
+            LOGIN
+          </button>
         </form>
-        <p id="loginMessage"></p>
+        <p id="loginMessage" class="text-red-500 text-center mt-2"></p>
       </section>
-      <section>
-        <h2>Don't have an account?</h2>
-        <a href="register.html" class="register-link"> REGISTER HERE</a>
+
+      <section class="mt-6 text-center">
+        <h2 class="text-lg">Don't have an account?</h2>
+        <a href="register.html" class="text-blue-600 hover:underline"
+          >REGISTER HERE</a
+        >
       </section>
     </main>
-    <footer>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white text-center py-4 mt-auto">
       <p>&copy; 2025 Blog Post. All rights reserved.</p>
     </footer>
+
+    <script>
+      document
+        .getElementById("menu-button")
+        .addEventListener("click", function () {
+          document.getElementById("menu").classList.toggle("hidden");
+        });
+    </script>
   </body>
 </html>

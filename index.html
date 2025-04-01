@@ -4,52 +4,76 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="module" src="js/index.js"></script>
-    <link rel="stylesheet" href="./css/style.css" />
-    <title>Posts homepage</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Posts Homepage</title>
   </head>
-  <body class="bg-gray-50 text-gray-900 font-sans">
+  <body class="bg-gray-50 text-gray-900 font-sans min-h-screen flex flex-col">
     <!-- Header -->
     <header class="bg-gray-800 text-white py-4">
-      <nav class="max-w-7xl mx-auto flex justify-between items-center px-6">
+      <nav
+        class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center px-6"
+      >
         <a href="index.html" class="text-xl font-bold hover:text-gray-200"
           >Home</a
         >
-        <div class="space-x-4">
-          <a href="account/login.html" class="hover:text-gray-200">Login</a>
-          <a href="account/register.html" class="hover:text-gray-200"
-            >Register</a
-          >
-          <a href="account/profilepage.html" class="hover:text-gray-200"
-            >Profile</a
-          >
-          <a href="html/allProfiles.html" class="hover:text-gray-200"
-            >See All Profiles</a
-          >
-          <a href="/html/create.html" class="hover:text-gray-200"
-            >Create post</a
-          >
-          <button
-            id="logoutButton"
-            class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded"
-          >
-            Log out
-          </button>
-        </div>
+
+        <button id="menu-button" class="md:hidden text-white text-xl">
+          &#9776;
+        </button>
+
+        <ul
+          id="menu"
+          class="hidden md:flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mt-4 md:mt-0"
+        >
+          <li>
+            <a href="account/login.html" class="hover:text-gray-200">Login</a>
+          </li>
+          <li>
+            <a href="account/register.html" class="hover:text-gray-200"
+              >Register</a
+            >
+          </li>
+          <li>
+            <a href="account/profilepage.html" class="hover:text-gray-200"
+              >Profile</a
+            >
+          </li>
+          <li>
+            <a href="html/allProfiles.html" class="hover:text-gray-200"
+              >See All Profiles</a
+            >
+          </li>
+          <li>
+            <a href="html/create.html" class="hover:text-gray-200"
+              >Create post</a
+            >
+          </li>
+          <li>
+            <button
+              id="logoutButton"
+              class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded"
+            >
+              Log out
+            </button>
+          </li>
+        </ul>
       </nav>
     </header>
 
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto p-6">
-      <div class="flex justify-between items-center mb-6">
+    <main class="max-w-7xl mx-auto p-6 flex-grow">
+      <div
+        class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4"
+      >
         <input
           type="text"
           id="searchInput"
           placeholder="Search for posts..."
-          class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-1/2"
+          class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-1/2"
         />
         <button
           id="searchButton"
-          class="bg-gray-800 text-white py-2 px-4 rounded hover:bg-blue-600"
+          class="bg-gray-800 text-white py-2 px-4 rounded hover:bg-blue-600 w-full sm:w-auto"
         >
           Search
         </button>
@@ -60,7 +84,7 @@
       <section class="posts-container">
         <h2 class="text-2xl font-bold mb-4">Latest posts</h2>
         <div
-          class="posts grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          class="posts grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
           id="posts-container"
         >
           <!-- Dynamically generated posts will go here -->
@@ -69,8 +93,16 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-blue-600 text-white py-4 text-center">
+    <footer class="bg-blue-600 text-white py-4 text-center mt-auto">
       <p>&copy; 2025 Blog Post. All rights reserved.</p>
     </footer>
+
+    <script>
+      document
+        .getElementById("menu-button")
+        .addEventListener("click", function () {
+          document.getElementById("menu").classList.toggle("hidden");
+        });
+    </script>
   </body>
 </html>
