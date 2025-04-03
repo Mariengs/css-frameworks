@@ -4,45 +4,144 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="module" src="../js/posts/createPost.js"></script>
-    <link rel="stylesheet" href="../css/createpost.css" />
-    <title>Create</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <title>Create Post</title>
   </head>
-  <body>
-    <header>
-      <nav>
-        <a href="../index.html">Home</a>
-        <a href="../account/login.html">Login</a>
-        <a href="../account/register.html">Register</a>
-        <a href="../account/profilepage.html">Profile</a>
-        <a href="../html/allProfiles.html">See All Profiles</a>
-        <a href="..//html/create.html">Create post</a>
-        <button id="logoutButton">Log out</button>
+  <body class="bg-gray-100 text-gray-900">
+    <!-- Header -->
+    <header class="bg-gray-800 text-white py-4">
+      <nav
+        class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center px-6"
+      >
+        <a href="/" class="text-xl font-bold hover:text-gray-200">Home</a>
+
+        <button id="menu-button" class="md:hidden text-white text-xl">
+          &#9776;
+        </button>
+
+        <ul
+          id="menu"
+          class="hidden md:flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mt-4 md:mt-0"
+        >
+          <li>
+            <a href="../account/login.html" class="hover:text-gray-200"
+              >Login</a
+            >
+          </li>
+          <li>
+            <a href="../account/register.html" class="hover:text-gray-200"
+              >Register</a
+            >
+          </li>
+          <li>
+            <a href="../account/profilepage.html" class="hover:text-gray-200"
+              >Profile</a
+            >
+          </li>
+          <li>
+            <a href="../html/allProfiles.html" class="hover:text-gray-200"
+              >See All Profiles</a
+            >
+          </li>
+
+          <li>
+            <button
+              id="logoutButton"
+              class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded"
+            >
+              Log out
+            </button>
+          </li>
+        </ul>
       </nav>
     </header>
-    <main>
-      <form id="createPostForm" class="createPostForm">
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title" required />
 
-        <label for="body">Content:</label>
-        <textarea id="body" name="body" required></textarea>
+    <!-- Main Content -->
+    <main class="flex justify-center items-center min-h-screen bg-gray-50">
+      <section class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
+        <h1 class="text-2xl font-semibold text-center mb-6">
+          Create a New Post
+        </h1>
+        <form id="createPostForm" class="space-y-6">
+          <!-- Title Input -->
+          <div>
+            <label for="title" class="block text-gray-700 font-semibold mb-2"
+              >Title:</label
+            >
+            <input
+              type="text"
+              id="title"
+              name="title"
+              required
+              class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
 
-        <label for="image">Image URL:</label>
-        <input type="url" id="image" name="image" required />
+          <!-- Content Input -->
+          <div>
+            <label for="body" class="block text-gray-700 font-semibold mb-2"
+              >Content:</label
+            >
+            <textarea
+              id="body"
+              name="body"
+              required
+              class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              rows="5"
+            ></textarea>
+          </div>
 
-        <label for="tags">Tags:</label>
-        <input
-          type="text"
-          id="tags"
-          name="tags"
-          placeholder="Separate tags with commas"
-        />
+          <!-- Image URL Input -->
+          <div>
+            <label for="image" class="block text-gray-700 font-semibold mb-2"
+              >Image URL:</label
+            >
+            <input
+              type="url"
+              id="image"
+              name="image"
+              required
+              class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
 
-        <button type="submit" id="createButton">Create Post</button>
-      </form>
+          <!-- Tags Input -->
+          <div>
+            <label for="tags" class="block text-gray-700 font-semibold mb-2"
+              >Tags:</label
+            >
+            <input
+              type="text"
+              id="tags"
+              name="tags"
+              placeholder="Separate tags with commas"
+              class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          <!-- Submit Button -->
+          <button
+            type="submit"
+            id="createButton"
+            class="w-full py-3 bg-gray-800 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            Create Post
+          </button>
+        </form>
+      </section>
     </main>
-    <footer>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white text-center py-4 mt-8">
       <p>&copy; 2025 Blog Post. All rights reserved.</p>
     </footer>
+
+    <script>
+      document
+        .getElementById("menu-button")
+        .addEventListener("click", function () {
+          document.getElementById("menu").classList.toggle("hidden");
+        });
+    </script>
   </body>
 </html>

@@ -6,9 +6,7 @@ const accessToken = localStorage.getItem("accessToken");
 async function searchProfiles(query) {
   try {
     if (!accessToken) {
-      throw new Error(
-        "Ingen access token funnet. Brukeren må være logget inn."
-      );
+      throw new Error("No access token found. The user must be logged in.");
     }
 
     const response = await fetch(
@@ -30,7 +28,7 @@ async function searchProfiles(query) {
     const data = await response.json();
     return data.data;
   } catch (error) {
-    console.error("Feil ved søk av profiler:", error);
+    console.error("Fail to search profiles:", error);
     return [];
   }
 }

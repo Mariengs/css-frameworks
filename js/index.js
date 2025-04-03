@@ -1,4 +1,5 @@
 import { renderPosts } from "./posts/renderPosts.js";
+import { searchPosts } from "../js/posts/searchPosts.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   renderPosts();

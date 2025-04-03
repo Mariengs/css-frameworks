@@ -10,36 +10,45 @@
   <body class="bg-gray-100 text-gray-900">
     <header class="bg-gray-800 text-white py-4">
       <nav
-        class="container mx-auto flex flex-col md:flex-row items-center justify-between px-4"
+        class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center px-6"
       >
-        <div class="text-lg font-bold">Blog</div>
+        <a href="/" class="text-xl font-bold hover:text-gray-200">Home</a>
+
         <button id="menu-button" class="md:hidden text-white text-xl">
           &#9776;
         </button>
-        <ul id="menu" class="hidden md:flex space-x-6 mt-4 md:mt-0">
-          <li><a href="../index.html" class="hover:underline">Home</a></li>
+
+        <ul
+          id="menu"
+          class="hidden md:flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mt-4 md:mt-0"
+        >
           <li>
-            <a href="../account/login.html" class="hover:underline">Login</a>
-          </li>
-          <li>
-            <a href="../account/register.html" class="hover:underline"
-              >Register</a
+            <a href="../account/login.html" class="hover:text-gray-200"
+              >Login</a
             >
           </li>
           <li>
-            <a href="../account/profilepage.html" class="hover:underline"
+            <a href="../account/profilepage.html" class="hover:text-gray-200"
               >Profile</a
             >
           </li>
           <li>
-            <a href="../html/allProfiles.html" class="hover:underline"
+            <a href="../html/allProfiles.html" class="hover:text-gray-200"
               >See All Profiles</a
             >
           </li>
           <li>
-            <a href="../html/create.html" class="hover:underline"
+            <a href="../html/create.html" class="hover:text-gray-200"
               >Create post</a
             >
+          </li>
+          <li>
+            <button
+              id="logoutButton"
+              class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded"
+            >
+              Log out
+            </button>
           </li>
         </ul>
       </nav>
@@ -106,5 +115,13 @@
     <footer class="bg-gray-800 text-white text-center py-4 mt-8">
       <p>&copy; 2025 Blog Post. All rights reserved.</p>
     </footer>
+
+    <script>
+      document
+        .getElementById("menu-button")
+        .addEventListener("click", function () {
+          document.getElementById("menu").classList.toggle("hidden");
+        });
+    </script>
   </body>
 </html>
