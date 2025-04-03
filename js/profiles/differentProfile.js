@@ -139,26 +139,51 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (postsContainer) {
       postsContainer.innerHTML = "";
+      postsContainer.classList.add(
+        "grid",
+        "grid-cols-1",
+        "sm:grid-cols-2",
+        "lg:grid-cols-2",
+        "gap-6",
+        "justify-items-center"
+      );
 
       if (posts.length) {
         posts.forEach((post) => {
           const postLink = document.createElement("a");
           postLink.href = `../html/singlepost.html?id=${post.id}`;
-          postLink.classList.add("post-link");
+          postLink.classList.add(
+            "block",
+            "rounded-lg",
+            "bg-white",
+            "shadow-md",
+            "hover:shadow-lg",
+            "transition-shadow",
+            "max-w-[350px]",
+            "w-full" // Begrenser bredden på innleggene
+          );
 
           const postDiv = document.createElement("div");
-          postDiv.classList.add("post");
+          postDiv.classList.add("p-4", "space-y-4", "sm:p-6");
 
           const postTitle = document.createElement("h3");
           postTitle.textContent = post.title || "No title available";
+          postTitle.classList.add("text-xl", "font-semibold", "text-gray-900");
 
           const postBody = document.createElement("p");
           postBody.textContent = post.body || "No body available";
+          postBody.classList.add("text-gray-700", "text-sm", "line-clamp-3"); // line-clamp for truncating text
 
           const postImage = document.createElement("img");
           if (post.media?.url) {
             postImage.src = post.media.url;
             postImage.alt = post.media.alt || "Post image";
+            postImage.classList.add(
+              "w-full",
+              "h-auto",
+              "rounded-lg",
+              "object-cover"
+            );
             postDiv.appendChild(postImage);
           }
 

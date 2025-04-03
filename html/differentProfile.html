@@ -3,39 +3,98 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profil</title>
     <script type="module" src="../js/profiles/differentProfile.js"></script>
-    <link rel="stylesheet" href="/css/differentProfil.css" />
+    <script src="../js/menuToggle.js" type="module"></script>
+    <link rel="stylesheet" href="../css/style.css" />
+    <title>Profil</title>
   </head>
-  <body>
-    <header>
-      <nav>
-        <a href="../index.html">Home</a>
-        <a href="../account/login.html">Login</a>
-        <a href="../account/register.html">Register</a>
-        <a href="../account/profilepage.html">Profile</a>
-        <a href="../html/allProfiles.html">See All Profiles</a>
-        <a href="..//html/create.html">Create post</a>
-        <button id="logoutButton">Log out</button>
+  <body class="bg-gray-100 text-gray-900">
+    <header class="bg-gray-800 text-white py-4">
+      <nav
+        class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center px-6"
+      >
+        <a href="/" class="text-xl font-bold hover:text-gray-200">Home</a>
+
+        <button id="menu-button" class="md:hidden text-white text-xl">
+          &#9776;
+        </button>
+
+        <ul
+          id="menu"
+          class="hidden md:flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mt-4 md:mt-0"
+        >
+          <li>
+            <a href="../account/login.html" class="hover:text-gray-200"
+              >Login</a
+            >
+          </li>
+          <li>
+            <a href="../account/register.html" class="hover:text-gray-200"
+              >Register</a
+            >
+          </li>
+          <li>
+            <a href="../account/profilepage.html" class="hover:text-gray-200"
+              >Profile</a
+            >
+          </li>
+          <li>
+            <a href="../html/allProfiles.html" class="hover:text-gray-200"
+              >See All Profiles</a
+            >
+          </li>
+          <li>
+            <button
+              id="logoutButton"
+              class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded"
+            >
+              Log out
+            </button>
+          </li>
+        </ul>
       </nav>
     </header>
-    <main>
-      <div id="profile">
-        <img id="profile-banner" alt="Banner" />
-        <h1><span id="profile-name">Loading...</span></h1>
-        <img id="profile-avatar" alt="Avatar" />
 
-        <p id="profile-bio">Bio</p>
-
-        <button id="follow-button" class="follow-button">Follow</button>
+    <main class="container mx-auto p-6">
+      <!-- Profile Section -->
+      <div id="profile" class="bg-white shadow-lg rounded-lg p-6 mb-8">
+        <img
+          id="profile-banner"
+          alt="Banner"
+          class="w-full h-48 object-cover rounded-lg mb-6"
+        />
+        <div class="text-center">
+          <img
+            id="profile-avatar"
+            alt="Avatar"
+            class="w-32 h-32 rounded-full mx-auto -mt-16 border-4 border-white"
+          />
+          <h1 class="text-2xl font-semibold mt-4" id="profile-name">
+            Loading...
+          </h1>
+          <p id="profile-bio" class="text-gray-600 mt-2">Bio</p>
+        </div>
+        <div class="text-center mt-6">
+          <button
+            id="follow-button"
+            class="bg-gray-800 px-6 py-2 rounded text-white hover:bg-blue-700"
+          >
+            Follow
+          </button>
+        </div>
       </div>
 
-      <section id="posts-container">
-        <h2>Innlegg</h2>
-        <div class="post">Laster innlegg...</div>
+      <!-- Posts Section -->
+      <section id="posts-container" class="bg-white shadow-lg rounded-lg p-6">
+        <h2 class="text-xl font-semibold mb-4">Innlegg</h2>
+        <div class="post bg-gray-50 p-4 rounded-lg shadow-sm mb-4">
+          Laster innlegg...
+        </div>
       </section>
     </main>
-    <footer>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white text-center p-4 mt-8">
       <p>&copy; 2025 Blog Post. All rights reserved.</p>
     </footer>
   </body>

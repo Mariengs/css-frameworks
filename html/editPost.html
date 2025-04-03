@@ -3,50 +3,128 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/editPost.css" />
+    <link href="../css/style.css" rel="stylesheet" />
     <script type="module" src="../js/posts/editPost.js"></script>
+    <script src="../js/menuToggle.js" type="module"></script>
     <title>Edit page</title>
   </head>
-  <body>
-    <header>
-      <nav>
-        <a href="../index.html">Home</a>
-        <a href="../account/login.html">Login</a>
-        <a href="../account/register.html">Register</a>
-        <a href="../account/profilepage.html">Profile</a>
-        <a href="../html/allProfiles.html">See All Profiles</a>
-        <a href="..//html/create.html">Create post</a>
-        <button id="logoutButton">Log out</button>
+  <body class="bg-gray-100 text-gray-900">
+    <header class="bg-gray-800 text-white py-4">
+      <nav
+        class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center px-6"
+      >
+        <a href="/" class="text-xl font-bold hover:text-gray-200">Home</a>
+
+        <button id="menu-button" class="md:hidden text-white text-xl">
+          &#9776;
+        </button>
+
+        <ul
+          id="menu"
+          class="hidden md:flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mt-4 md:mt-0"
+        >
+          <li>
+            <a href="../account/login.html" class="hover:text-gray-200"
+              >Login</a
+            >
+          </li>
+          <li>
+            <a href="../account/register.html" class="hover:text-gray-200"
+              >Register</a
+            >
+          </li>
+          <li>
+            <a href="../account/profilepage.html" class="hover:text-gray-200"
+              >Profile</a
+            >
+          </li>
+          <li>
+            <a href="../html/allProfiles.html" class="hover:text-gray-200"
+              >See All Profiles</a
+            >
+          </li>
+          <li>
+            <button
+              id="logoutButton"
+              class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded"
+            >
+              Log out
+            </button>
+          </li>
+        </ul>
       </nav>
     </header>
-    <main>
-      <h1>Edit Post</h1>
-      <section class="editForm">
-        <form id="editForm" data-id="`${id}`">
-          <label for="title">Title:</label>
-          <input type="text" id="title" name="title" required />
+    <main
+      class="flex-col justify-center p-8 items-center min-h-screen bg-gray-50"
+    >
+      <section class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
+        <h1 class="text-2xl font-semibold text-center mb-6">Edit post</h1>
+        <form id="editForm" data-id="`${id}`" class="space-y-6">
+          <div>
+            <label for="title" class="block text-lg font-medium">Title:</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              required
+              class="mt-2 w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
 
-          <label for="body">Content:</label>
-          <textarea id="body" name="body" required></textarea>
+          <div>
+            <label for="body" class="block text-lg font-medium">Content:</label>
+            <textarea
+              id="body"
+              name="body"
+              required
+              class="mt-2 w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            ></textarea>
+          </div>
 
-          <label for="image">Image URL:</label>
-          <input type="text" id="image" name="image" />
+          <div>
+            <label for="image" class="block text-lg font-medium"
+              >Image URL:</label
+            >
+            <input
+              type="text"
+              id="image"
+              name="image"
+              class="mt-2 w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
 
-          <input
-            type="text"
-            id="tagsInput"
-            placeholder="Tags separated by commas"
-          />
-
-          <div class="form-actions">
-            <button type="submit">Update post</button>
-            <button type="button" id="deleteButton">Delete post</button>
+          <div>
+            <label for="tagsInput" class="block text-lg font-medium"
+              >Tags:</label
+            >
+            <input
+              type="text"
+              id="tagsInput"
+              placeholder="Tags separated by commas"
+              class="mt-2 w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
           </div>
         </form>
       </section>
+
+      <div class="buttons flex gap-4 mt-6">
+        <button
+          id="editButton"
+          class="bg-gray-800 px-4 py-2 rounded text-white hover:bg-yellow-600"
+        >
+          Edit
+        </button>
+        <button
+          id="deleteButton"
+          class="bg-red-500 px-4 py-2 rounded text-white hover:bg-red-600"
+        >
+          Delete
+        </button>
+      </div>
     </main>
+
+    <footer class="bg-gray-800 text-white text-center py-4 mt-auto">
+      <p>&copy; 2025 Blog Post. All rights reserved.</p>
+    </footer>
   </body>
-  <footer>
-    <p>&copy; 2025 Blog Post. All rights reserved.</p>
-  </footer>
 </html>

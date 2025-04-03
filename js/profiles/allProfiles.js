@@ -129,7 +129,7 @@ async function renderProfiles(profiles) {
     // Follow Button
     const followButton = document.createElement("button");
     followButton.classList.add(
-      "bg-blue-500",
+      "bg-gray-800",
       "text-white",
       "py-2",
       "px-4",

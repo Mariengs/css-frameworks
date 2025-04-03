@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="module" src="../js/user/profilePage.js"></script>
+    <script src="../js/menuToggle.js" type="module"></script>
     <link rel="stylesheet" href="/css/style.css" />
     <title>Profile Page</title>
   </head>
@@ -29,22 +30,22 @@
             >
           </li>
           <li>
-            <a href="account/register.html" class="hover:text-gray-200"
+            <a href="../account/register.html" class="hover:text-gray-200"
               >Register</a
             >
           </li>
           <li>
-            <a href="account/profilepage.html" class="hover:text-gray-200"
+            <a href="../account/profilepage.html" class="hover:text-gray-200"
               >Profile</a
             >
           </li>
           <li>
-            <a href="html/allProfiles.html" class="hover:text-gray-200"
+            <a href="../html/allProfiles.html" class="hover:text-gray-200"
               >See All Profiles</a
             >
           </li>
           <li>
-            <a href="html/create.html" class="hover:text-gray-200"
+            <a href="../html/create.html" class="hover:text-gray-200"
               >Create post</a
             >
           </li>
@@ -97,14 +98,5 @@
     <footer class="bg-gray-800 text-white text-center py-4 mt-auto">
       <p>&copy; 2025 Blog Post. All rights reserved.</p>
     </footer>
-
-    <script>
-      // Toggle menu visibility on mobile
-      document
-        .getElementById("menu-button")
-        .addEventListener("click", function () {
-          document.getElementById("menu").classList.toggle("hidden");
-        });
-    </script>
   </body>
 </html>
