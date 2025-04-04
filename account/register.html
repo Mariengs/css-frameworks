@@ -60,40 +60,64 @@
         <h1 class="text-2xl font-semibold text-center mb-6">
           Create Your Account
         </h1>
+
+        <!-- Generell feilmelding -->
+        <p id="formError" class="text-red-500 text-sm hidden"></p>
+
         <form id="registerform" class="space-y-4">
           <input
             type="text"
             id="name"
+            name="name"
             placeholder="Name"
             required
+            minlength="2"
             class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+
           <input
             type="email"
             id="email"
+            name="email"
             placeholder="Email"
             required
             class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+          <p id="emailError" class="text-red-500 text-sm hidden">
+            E-mail must end with @stud.noroff.no
+          </p>
+
           <input
             type="password"
             id="password"
+            name="password"
             placeholder="Password"
             required
+            minlength="8"
             class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+          <p id="passwordError" class="text-red-500 text-sm hidden">
+            Password must be at least 8 characters
+          </p>
+
           <input
             type="text"
             id="bio"
+            name="bio"
             placeholder="Bio (optional)"
+            maxlength="150"
             class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <input
-            type="text"
+            type="url"
             id="avatar"
-            placeholder="Avatar URL (optional)"
+            name="avatar"
+            placeholder="Avatar URL"
+            pattern="https?://.*"
+            title="Must be a valid URL starting with http:// or https://"
             class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+
           <button
             class="w-full py-3 bg-gray-800 text-white font-semibold rounded-md hover:bg-blue-600"
             type="submit"

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/style.css" />
     <title>Posts Homepage</title>
   </head>
-  <body class="bg-gray-100 text-gray-900">
+  <body class="bg-gray-100 text-gray-900 flex flex-col min-h-screen">
     <header class="bg-gray-800 text-white py-4">
       <nav
         class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center px-6"
@@ -77,16 +77,18 @@
       </div>
 
       <h1 class="text-4xl font-semibold text-center mb-8">Posts Homepage</h1>
+      <div id="error-message" class="text-red-500 text-center hidden">
+        You must be logged in to see all posts.
+      </div>
 
       <section class="posts-container">
-        <h2 class="text-2xl font-bold mb-4">Latest posts</h2>
+        <h2 class="text-2xl text-center mb-4">Latest posts</h2>
         <div
           class="posts grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
           id="posts-container"
         ></div>
       </section>
     </main>
-
     <footer class="bg-gray-800 text-white py-4 text-center mt-auto">
       <p>&copy; 2025 Blog Post. All rights reserved.</p>
     </footer>
