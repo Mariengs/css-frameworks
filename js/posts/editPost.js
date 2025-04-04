@@ -138,6 +138,13 @@ if (deleteButton) {
   });
 }
 
+const editButton = document.getElementById("editButton");
+if (editButton) {
+  editButton.addEventListener("click", () => {
+    document.getElementById("editForm").dispatchEvent(new Event("submit"));
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const logoutButton = document.getElementById("logoutButton");
 

@@ -2,7 +2,6 @@ import { BASE_URL } from "../api/api.js";
 import { apiKey } from "../api/apiKey.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
-  // Sørg for at elementene finnes før vi går videre
   const profileContainer = document.querySelector(".profile");
   const postsContainer = document.getElementById("posts");
 
@@ -77,7 +76,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Bio
     const bioElement = document.createElement("p");
-    bioElement.innerText = profileData.data.bio || "No bio available"; // Fallback
+    bioElement.innerText = profileData.data.bio || "No bio available";
 
     // Email
     const emailElement = document.createElement("p");

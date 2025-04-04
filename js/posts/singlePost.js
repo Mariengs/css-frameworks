@@ -114,5 +114,4 @@ function displayPost(postData) {
   }
 }
 
-// Fetch the post when the page loads
 getPost(id);

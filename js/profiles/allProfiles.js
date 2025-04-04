@@ -95,7 +95,7 @@ async function renderProfiles(profiles) {
 
     // Avatar image
     const avatarImage = document.createElement("img");
-    avatarImage.src = profile.avatar?.url || "default-avatar.jpg"; // Fallback til standard avatar
+    avatarImage.src = profile.avatar?.url || "default-avatar.jpg";
     avatarImage.alt = profile.avatar?.alt || "Avatar";
     avatarImage.classList.add(
       "w-24",

@@ -160,7 +160,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             "hover:shadow-lg",
             "transition-shadow",
             "max-w-[350px]",
-            "w-full" // Begrenser bredden på innleggene
+            "w-full"
           );
 
           const postDiv = document.createElement("div");
@@ -172,7 +172,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
           const postBody = document.createElement("p");
           postBody.textContent = post.body || "No body available";
-          postBody.classList.add("text-gray-700", "text-sm", "line-clamp-3"); // line-clamp for truncating text
+          postBody.classList.add("text-gray-700", "text-sm", "line-clamp-3");
 
           const postImage = document.createElement("img");
           if (post.media?.url) {
