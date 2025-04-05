@@ -6,6 +6,8 @@ const accessToken = localStorage.getItem("accessToken");
 async function searchProfiles(query) {
   try {
     if (!accessToken) {
+      alert("You must be logged in to search for profiles.");
+      window.location.href = "../account/login.html";
       throw new Error("No access token found. The user must be logged in.");
     }
 
@@ -22,13 +24,13 @@ async function searchProfiles(query) {
     );
 
     if (!response.ok) {
-      throw new Error(`Feil ved søk av profiler: ${response.statusText}`);
+      throw new Error(`Error searching profiles: ${response.statusText}`);
     }
 
     const data = await response.json();
     return data.data;
   } catch (error) {
-    console.error("Fail to search profiles:", error);
+    console.error("Failed to search profiles:", error);
     return [];
   }
 }
@@ -36,9 +38,9 @@ async function searchProfiles(query) {
 async function getAllProfiles() {
   try {
     if (!accessToken) {
-      throw new Error(
-        "Ingen access token funnet. Brukeren må være logget inn."
-      );
+      alert("You must be logged in to view profiles.");
+      window.location.href = "../account/login.html";
+      throw new Error("No access token found. The user must be logged in.");
     }
 
     const response = await fetch(`${BASE_URL}social/profiles`, {
@@ -51,14 +53,13 @@ async function getAllProfiles() {
     });
 
     if (!response.ok) {
-      throw new Error(`Feil ved henting av profiler: ${response.statusText}`);
+      throw new Error(`Error fetching profiles: ${response.statusText}`);
     }
 
     const data = await response.json();
-
     return data.data;
   } catch (error) {
-    console.error("Feil ved henting av profiler:", error);
+    console.error("Error fetching profiles:", error);
     return [];
   }
 }
@@ -111,7 +112,7 @@ async function renderProfiles(profiles) {
     // Profile Name
     const profileName = document.createElement("h3");
     profileName.classList.add("text-lg", "font-semibold", "text-center");
-    profileName.textContent = profile.name || "Ukjent Navn";
+    profileName.textContent = profile.name || "Unknown Name";
     profileCard.appendChild(profileName);
 
     // Profile Bio
@@ -123,7 +124,7 @@ async function renderProfiles(profiles) {
     // Profile Stats
     const profileStats = document.createElement("p");
     profileStats.classList.add("text-sm", "text-gray-600", "text-center");
-    profileStats.textContent = `Innlegg: ${profile._count.posts}, Følgere: ${profile._count.followers}, Følger: ${profile._count.following}`;
+    profileStats.textContent = `Posts: ${profile._count.posts}, Followers: ${profile._count.followers}, Following: ${profile._count.following}`;
     profileCard.appendChild(profileStats);
 
     // Follow Button
@@ -144,7 +145,7 @@ async function renderProfiles(profiles) {
       event.preventDefault();
 
       if (!profile.name) {
-        console.error("Ugyldig profilnavn:", profile);
+        console.error("Invalid profile name:", profile);
         return;
       }
 
@@ -164,7 +165,7 @@ async function toggleFollow(profileName, action) {
   const accessToken = localStorage.getItem("accessToken");
 
   if (!profileName) {
-    console.error("Profilename is undefined.");
+    console.error("Profile name is undefined.");
     return;
   }
 
@@ -208,13 +209,13 @@ async function toggleFollow(profileName, action) {
     const responseData = await response.json();
 
     if (!response.ok) {
-      console.error("Feil ved forespørsel:", responseData);
-      throw new Error(`Feil ved ${action} profil: ${response.statusText}`);
+      console.error("Error with the request:", responseData);
+      throw new Error(`Error with ${action} profile: ${response.statusText}`);
     }
 
     console.log(`${action}ed profile: ${profileName}`);
   } catch (error) {
-    console.error(`Feil ved å ${action} profil:`, error);
+    console.error(`Error with ${action} profile:`, error);
   }
 }
 
