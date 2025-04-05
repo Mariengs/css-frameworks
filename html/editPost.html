@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="../css/style.css" rel="stylesheet" />
     <script type="module" src="../js/posts/editPost.js"></script>
+    <script type="module" src="../js/loadingSim.js"></script>
     <script src="../js/menuToggle.js" type="module"></script>
     <title>Edit page</title>
   </head>
@@ -54,72 +55,84 @@
         </ul>
       </nav>
     </header>
-    <main
-      class="flex-col justify-center p-8 items-center min-h-screen bg-gray-50"
-    >
-      <section class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
-        <h1 class="text-2xl font-semibold text-center mb-6">Edit post</h1>
-        <form id="editForm" data-id="`${id}`" class="space-y-6">
-          <div>
-            <label for="title" class="block text-lg font-medium">Title:</label>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              required
-              class="mt-2 w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
 
-          <div>
-            <label for="body" class="block text-lg font-medium">Content:</label>
-            <textarea
-              id="body"
-              name="body"
-              required
-              class="mt-2 w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            ></textarea>
-          </div>
-
-          <div>
-            <label for="image" class="block text-lg font-medium"
-              >Image URL:</label
-            >
-            <input
-              type="text"
-              id="image"
-              name="image"
-              class="mt-2 w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
-          <div>
-            <label for="tagsInput" class="block text-lg font-medium"
-              >Tags:</label
-            >
-            <input
-              type="text"
-              id="tagsInput"
-              placeholder="Tags separated by commas"
-              class="mt-2 w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-        </form>
-      </section>
-
-      <div class="buttons flex gap-4 mt-6">
-        <button
-          id="editButton"
-          class="bg-gray-800 px-4 py-2 rounded text-white hover:bg-yellow-600"
+    <main class="flex items-center justify-center min-h-screen p-8 bg-gray-50">
+      <div class="flex flex-col items-center w-full">
+        <section
+          class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg sm:max-w-xl lg:max-w-2xl"
         >
-          Edit
-        </button>
-        <button
-          id="deleteButton"
-          class="bg-red-500 px-4 py-2 rounded text-white hover:bg-red-600"
-        >
-          Delete
-        </button>
+          <h1 class="text-2xl font-semibold text-center mb-6">Edit post</h1>
+          <form id="editForm" data-id="`${id}`" class="space-y-6">
+            <div>
+              <label for="title" class="block text-lg font-medium"
+                >Title:</label
+              >
+              <input
+                type="text"
+                id="title"
+                name="title"
+                required
+                class="mt-2 w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+
+            <div>
+              <label for="body" class="block text-lg font-medium"
+                >Content:</label
+              >
+              <textarea
+                id="body"
+                name="body"
+                required
+                class="mt-2 w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              ></textarea>
+              <small id="bodyLengthFeedback">0/280 characters</small>
+            </div>
+
+            <div>
+              <label for="image" class="block text-lg font-medium"
+                >Image URL:</label
+              >
+              <input
+                type="text"
+                id="image"
+                name="image"
+                class="mt-2 w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+
+            <div>
+              <label for="tagsInput" class="block text-lg font-medium"
+                >Tags:</label
+              >
+              <input
+                type="text"
+                id="tagsInput"
+                placeholder="Tags separated by commas"
+                class="mt-2 w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+          </form>
+        </section>
+
+        <div class="buttons flex gap-4 mt-8">
+          <button
+            id="editButton"
+            class="bg-gray-800 px-4 py-2 rounded text-white hover:bg-yellow-600 disabled:opacity-50 flex items-center gap-2"
+          >
+            <span class="button-text">Edit</span>
+            <span
+              class="loading-spinner hidden animate-spin border-2 border-t-transparent border-white rounded-full w-4 h-4"
+            ></span>
+          </button>
+
+          <button
+            id="deleteButton"
+            class="bg-red-500 px-4 py-2 rounded text-white hover:bg-red-600"
+          >
+            Delete
+          </button>
+        </div>
       </div>
     </main>
 

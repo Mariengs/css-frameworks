@@ -74,10 +74,10 @@ async function handleEditFormSubmit(event) {
 
   // Fetch updated post data
   const updatedPost = {
-    title: document.getElementById("title").value,
-    body: document.getElementById("body").value,
+    title: document.getElementById("title").value || null,
+    body: document.getElementById("body").value || null,
     media: {
-      url: document.getElementById("image").value,
+      url: document.getElementById("image").value || null,
     },
     tags: document
       .getElementById("tagsInput")
@@ -90,7 +90,7 @@ async function handleEditFormSubmit(event) {
     const token = getAccessToken();
 
     if (!token) {
-      throw new Error("Ingen token funnet. Er du logget inn?");
+      throw new Error("No token found. Are you logged in?");
     }
 
     const headers = {
@@ -105,18 +105,24 @@ async function handleEditFormSubmit(event) {
       body: JSON.stringify(updatedPost),
     });
 
+    const result = await response.json();
+
     if (!response.ok) {
-      throw new Error(
-        `Kunne ikke oppdatere innlegget. Status: ${response.status}`
-      );
+      console.error("Detailed error from API:", result);
+      throw new Error(result.message || `Status: ${response.status}`);
     }
 
-    alert("Innlegget ble oppdatert!");
+    alert("Post updated successfully!");
     window.location.href = `../html/singlepost.html?id=${id}`;
   } catch (error) {
-    console.error("Feil ved oppdatering av innlegg:", error.message);
+    console.error("Update post error:", error.message);
   }
 }
+
+document.getElementById("body").addEventListener("input", (e) => {
+  const feedback = document.getElementById("bodyLengthFeedback");
+  feedback.textContent = `${e.target.value.length}/280 characters`;
+});
 
 const editForm = document.getElementById("editForm");
 if (editForm) {
@@ -128,9 +134,7 @@ getPostForEdit(id);
 const deleteButton = document.getElementById("deleteButton");
 if (deleteButton) {
   deleteButton.addEventListener("click", () => {
-    const confirmDelete = confirm(
-      "Er du sikker på at du vil slette dette innlegget?"
-    );
+    const confirmDelete = confirm("Are you sure you want to delete this post?");
 
     if (confirmDelete) {
       deletePost(id);

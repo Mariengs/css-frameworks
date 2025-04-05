@@ -53,7 +53,7 @@ export async function renderPosts() {
 
     const postBody = document.createElement("p");
     postBody.textContent = post.body;
-    postBody.classList.add("text-gray-600", "flex-grow");
+    postBody.classList.add("text-gray-600", "truncate-2-lines");
 
     postContent.appendChild(postTitle);
     postContent.appendChild(postBody);
