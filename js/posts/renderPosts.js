@@ -5,7 +5,7 @@ export async function renderPosts() {
   const posts = await getAllPosts();
 
   if (!posts || posts.length === 0) {
-    console.error("Ingen poster funnet!");
+    console.error("No posts found!");
     return;
   }
 
@@ -31,7 +31,7 @@ export async function renderPosts() {
       "hover:shadow-xl",
       "transition-shadow",
       "duration-300",
-      "h-full", // Fyller hele høyden
+      "h-full",
       "flex",
       "flex-col"
     );
