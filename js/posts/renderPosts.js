@@ -1,11 +1,9 @@
 import { getAllPosts } from "/js/posts/getAllPosts.js";
-import { BASE_URL } from "../api/api.js";
 
 export async function renderPosts() {
   const posts = await getAllPosts();
 
   if (!posts || posts.length === 0) {
-    console.error("No posts found!");
     return;
   }
 
