@@ -7,20 +7,21 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx tailwindcss -i ./css/input.css -o ./css/style.css --watch",
-    "build": "npx tailwindcss -i ./css/input.css -o ./css/style.css --minify"
+    "build": "npx tailwindcss -i ./css/input.css -o ./css/style.css --minify",
+    "start": "live-server ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "autoprefixer": "^10.4.21",
+    "live-server": "^1.2.2",
     "postcss": "^8.5.3",
     "tailwindcss": "^3.4.17"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.0.17",
     "browserslist": "^4.24.4",
-    "caniuse-lite": "^1.0.30001707",
     "electron-to-chromium": "^1.5.124",
     "escalade": "^3.2.0",
     "fraction.js": "^4.3.7",
