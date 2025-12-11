@@ -12,12 +12,10 @@ function setupAuthNav() {
 
   const loggedIn = isLoggedIn();
 
-  // Når IKKE logget inn: vis Login/Register, skjul resten
   if (loginLink) loginLink.parentElement.style.display = loggedIn ? "none" : "";
   if (registerLink)
     registerLink.parentElement.style.display = loggedIn ? "none" : "";
 
-  // Når logget inn: vis Profile / See all profiles / Create post / Logout
   if (profileLink)
     profileLink.parentElement.style.display = loggedIn ? "" : "none";
   if (allProfilesLink)
