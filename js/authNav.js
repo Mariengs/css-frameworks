@@ -1,8 +1,5 @@
-console.log("authNav.js loaded 🎯");
-
 function isLoggedIn() {
   const token = localStorage.getItem("accessToken");
-  console.log("isLoggedIn? token:", token ? "✅ finnes" : "❌ finnes ikke");
   return !!token;
 }
 
@@ -17,19 +14,8 @@ function setupAuthNav() {
   const logoutItem = document.getElementById("nav-logout");
   const logoutButton = document.getElementById("logoutButton");
 
-  console.log("Elementer funnet:", {
-    loginItem,
-    registerItem,
-    profileItem,
-    allProfilesItem,
-    createItem,
-    logoutItem,
-    logoutButton,
-  });
-
   const loggedIn = isLoggedIn();
 
-  // IKKE logget inn → vis Login/Register, skjul resten
   if (loginItem) loginItem.style.display = loggedIn ? "none" : "";
   if (registerItem) registerItem.style.display = loggedIn ? "none" : "";
 
@@ -46,8 +32,6 @@ function setupAuthNav() {
       window.location.href = "/";
     });
   }
-
-  console.log("Nav oppdatert, loggedIn =", loggedIn);
 }
 
 document.addEventListener("DOMContentLoaded", setupAuthNav);
