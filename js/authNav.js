@@ -9,45 +9,34 @@ function isLoggedIn() {
 function setupAuthNav() {
   console.log("setupAuthNav kjører...");
 
-  const loginLink = document.querySelector('a[href$="login.html"]');
-  const registerLink = document.querySelector('a[href$="register.html"]');
-  const profileLink = document.querySelector('a[href$="profilepage.html"]');
-  const allProfilesLink = document.querySelector('a[href$="allProfiles.html"]');
-  const createPostLink = document.querySelector('a[href$="create.html"]');
+  const loginItem = document.getElementById("nav-login");
+  const registerItem = document.getElementById("nav-register");
+  const profileItem = document.getElementById("nav-profile");
+  const allProfilesItem = document.getElementById("nav-all-profiles");
+  const createItem = document.getElementById("nav-create");
+  const logoutItem = document.getElementById("nav-logout");
   const logoutButton = document.getElementById("logoutButton");
 
   console.log("Elementer funnet:", {
-    loginLink,
-    registerLink,
-    profileLink,
-    allProfilesLink,
-    createPostLink,
+    loginItem,
+    registerItem,
+    profileItem,
+    allProfilesItem,
+    createItem,
+    logoutItem,
     logoutButton,
   });
 
   const loggedIn = isLoggedIn();
 
-  // Når IKKE logget inn: vis Login/Register, skjul resten
-  if (loginLink && loginLink.parentElement) {
-    loginLink.parentElement.style.display = loggedIn ? "none" : "";
-  }
-  if (registerLink && registerLink.parentElement) {
-    registerLink.parentElement.style.display = loggedIn ? "none" : "";
-  }
+  // IKKE logget inn → vis Login/Register, skjul resten
+  if (loginItem) loginItem.style.display = loggedIn ? "none" : "";
+  if (registerItem) registerItem.style.display = loggedIn ? "none" : "";
 
-  // Når logget inn: vis Profile / See All Profiles / Create post / Logout
-  if (profileLink && profileLink.parentElement) {
-    profileLink.parentElement.style.display = loggedIn ? "" : "none";
-  }
-  if (allProfilesLink && allProfilesLink.parentElement) {
-    allProfilesLink.parentElement.style.display = loggedIn ? "" : "none";
-  }
-  if (createPostLink && createPostLink.parentElement) {
-    createPostLink.parentElement.style.display = loggedIn ? "" : "none";
-  }
-  if (logoutButton) {
-    logoutButton.style.display = loggedIn ? "" : "none";
-  }
+  if (profileItem) profileItem.style.display = loggedIn ? "" : "none";
+  if (allProfilesItem) allProfilesItem.style.display = loggedIn ? "" : "none";
+  if (createItem) createItem.style.display = loggedIn ? "" : "none";
+  if (logoutItem) logoutItem.style.display = loggedIn ? "" : "none";
 
   if (logoutButton) {
     logoutButton.addEventListener("click", () => {
