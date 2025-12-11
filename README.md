@@ -12,9 +12,7 @@ This project is a front-end application for a social media platform built using 
 - Search for posts
 - View user profiles and search for profiles
 
-The application integrates Noroff’s API for authentication and social content. It follows modular ES6 practices, with at least three functions documented using JSDoc. A basic UI is implemented, and the project is deployed on Netlify: https://twcss-frameworks.netlify.app/
-
----
+## The application integrates Noroff’s API for authentication and social content. It follows modular ES6 practices, with at least three functions documented using JSDoc. A basic UI is implemented, and the project is deployed on Netlify: css-frameworkss.netlify.app
 
 # Bulit with
 
