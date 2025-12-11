@@ -1,5 +1,3 @@
-console.log("authNav.js loaded 🎯");
-
 (function () {
   function initNavAuth() {
     const token = localStorage.getItem("accessToken");
