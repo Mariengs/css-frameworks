@@ -1,5 +1,3 @@
-console.log("authNav.js loaded 🎯");
-
 function isLoggedIn() {
   return !!localStorage.getItem("accessToken");
 }
