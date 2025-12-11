@@ -1,50 +1,40 @@
-(function () {
-  function initNavAuth() {
-    const token = localStorage.getItem("accessToken");
+console.log("authNav.js loaded 🎯");
 
-    const loginLink = document.querySelector('a[href$="login.html"]');
-    const registerLink = document.querySelector('a[href$="register.html"]');
-    const profileLink = document.querySelector('a[href$="profilepage.html"]');
-    const allProfilesLink = document.querySelector(
-      'a[href$="allProfiles.html"]'
-    );
-    const createPostLink = document.querySelector('a[href$="create.html"]');
-    const logoutButton = document.getElementById("logoutButton");
+function isLoggedIn() {
+  return !!localStorage.getItem("accessToken");
+}
 
-    if (
-      !loginLink &&
-      !registerLink &&
-      !profileLink &&
-      !allProfilesLink &&
-      !createPostLink &&
-      !logoutButton
-    ) {
-      return;
-    }
+function setupAuthNav() {
+  const loginLink = document.querySelector('a[href$="login.html"]');
+  const registerLink = document.querySelector('a[href$="register.html"]');
+  const profileLink = document.querySelector('a[href$="profilepage.html"]');
+  const allProfilesLink = document.querySelector('a[href$="allProfiles.html"]');
+  const createPostLink = document.querySelector('a[href$="create.html"]');
+  const logoutButton = document.getElementById("logoutButton");
 
-    if (!token) {
-      if (profileLink) profileLink.style.display = "none";
-      if (allProfilesLink) allProfilesLink.style.display = "none";
-      if (createPostLink) createPostLink.style.display = "none";
-      if (logoutButton) logoutButton.style.display = "none";
-    } else {
-      if (loginLink) loginLink.style.display = "none";
-      if (registerLink) registerLink.style.display = "none";
-    }
+  const loggedIn = isLoggedIn();
 
-    if (logoutButton) {
-      logoutButton.addEventListener("click", function () {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("userData");
+  // Når IKKE logget inn: vis Login/Register, skjul resten
+  if (loginLink) loginLink.parentElement.style.display = loggedIn ? "none" : "";
+  if (registerLink)
+    registerLink.parentElement.style.display = loggedIn ? "none" : "";
 
-        window.location.href = "/";
-      });
-    }
+  // Når logget inn: vis Profile / See all profiles / Create post / Logout
+  if (profileLink)
+    profileLink.parentElement.style.display = loggedIn ? "" : "none";
+  if (allProfilesLink)
+    allProfilesLink.parentElement.style.display = loggedIn ? "" : "none";
+  if (createPostLink)
+    createPostLink.parentElement.style.display = loggedIn ? "" : "none";
+  if (logoutButton) logoutButton.style.display = loggedIn ? "" : "none";
+
+  if (logoutButton) {
+    logoutButton.addEventListener("click", () => {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("user");
+      window.location.href = "/";
+    });
   }
+}
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initNavAuth);
-  } else {
-    initNavAuth();
-  }
-})();
+document.addEventListener("DOMContentLoaded", setupAuthNav);
