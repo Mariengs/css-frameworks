@@ -15,7 +15,6 @@
         class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center px-6"
       >
         <a href="/" class="text-xl font-bold hover:text-gray-200">Home</a>
-
         <button id="menu-button" class="md:hidden text-white text-xl">
           &#9776;
         </button>
@@ -34,7 +33,6 @@
             Search
           </button>
         </div>
-
         <ul
           id="menu"
           class="hidden md:flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mt-4 md:mt-0"
@@ -77,19 +75,56 @@
     </header>
 
     <main class="max-w-7xl mx-auto p-6 flex-grow">
-      <h1 class="text-4xl font-semibold text-center mb-8">Blog posts</h1>
-      <div id="error-message" class="text-red-500 text-center hidden">
-        You must be logged in to see all posts.
+      <!-- Hero title with nice styling -->
+      <div class="text-center mb-10 mt-4">
+        <h1 class="text-5xl font-bold text-gray-800 mb-3">Blog Posts</h1>
+        <div
+          class="w-24 h-1 bg-gradient-to-r from-blue-500 to-indigo-600 mx-auto rounded-full"
+        ></div>
+      </div>
+
+      <!-- Error message - modern card design instead of plain red text -->
+      <div id="error-message" class="hidden max-w-2xl mx-auto mb-8">
+        <div
+          class="bg-gradient-to-r from-red-500 to-rose-600 text-white px-6 py-4 rounded-xl shadow-lg"
+        >
+          <div class="flex items-center gap-3">
+            <svg
+              class="w-6 h-6 flex-shrink-0"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            <div>
+              <p class="font-semibold">Authentication Required</p>
+              <p class="text-sm text-red-100">
+                You must be logged in to see all posts.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
       <section class="posts-container">
-        <h2 class="text-2xl text-center mb-4">Latest posts!</h2>
+        <!-- Section header with decorative elements -->
+        <div class="flex items-center justify-center gap-3 mb-8">
+          <span class="h-0.5 w-12 bg-gray-400"></span>
+          <h2 class="text-3xl font-semibold text-gray-700">Latest Posts</h2>
+          <span class="h-0.5 w-12 bg-gray-400"></span>
+        </div>
+
         <div
           class="posts grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
           id="posts-container"
         ></div>
       </section>
     </main>
+
     <footer class="bg-gray-800 text-white py-4 text-center mt-auto">
       <p>&copy; 2025 Blog Post. All rights reserved.</p>
     </footer>
